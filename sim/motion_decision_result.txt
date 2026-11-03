@@ -1,0 +1,54 @@
+=== tb_motion_decision ===
+  [info] VREF=60 KP_SHIFT=1 LIMIT=120 DB=1 STEER_SHIFT=4
+  [info] 约定: steer>0 = 右转 = 左轮加速(系数+1) / 右轮减速(系数-1)
+
+--- 1. speed_scale -> base 映射 ---
+  [ OK ] 1.1 STOP: 四轮 duty 全为 0 : 0
+  [ OK ] 1.2 SLOW: target=30 : 30
+  [ OK ] 1.3 FULL: target=60 : 60
+
+--- 2. 比例控制 + 死区 ---
+  [ OK ] 2.1 静止: duty=30 : 30
+  [ OK ] 2.2 静止: dir=1 : 1
+  [ OK ] 2.3 静止: limited=0 : 0
+  [ OK ] .4 达到目标: duty=0 (死区) : 0
+  [ OK ] 2.5 略微超速: duty=1 : 1
+  [ OK ] �速: dir=0 (算术右移保号) : 0
+
+--- 3. 限幅（每轮独立）---
+  [ OK ] 3.1 深超速: duty=120 (饱和) : 120
+  [ OK ] 3.2 深超速: limited=1 : 1
+  [ OK ] .3 只有 0 路饱和: duty0=120 : 120
+  [ OK ] �饱和: duty1=30 (不受拖累) : 30
+  [ OK ] .5 只有 0 路饱和: limited=1 : 1
+
+--- 4. 关使能 ---
+  [ OK ]  关使能: 四轮 duty 全为 0 : 0
+  [ OK ] 4.2 关使能: limited=0 : 0
+  [ OK ] 4.3 关使能: 方向仍给出 : 1
+
+--- 5. 转向符号（最容易搞反的地方）---
+  [ OK ] 5.1 steer=160: 左轮 target=70 : 70
+  [ OK ] 5.2 steer=160: 右前 target=50 : 50
+  [ OK ] 右转: 左轮比右轮目标高 : 1
+  [ OK ] 5.4 右转: 左轮 duty=35 : 35
+  [ OK ] 5.5 右转: 右前 duty=25 : 25
+  [ OK ] 5.6 steer=-160: 左轮 target=50 : 50
+  [ OK ] 5.7 steer=-160: 右前 target=70 : 70
+  [ OK ] 左转: 右轮比左轮目标高 : 1
+  [ OK ] ��轮目标相同（走直线） : 1
+
+--- 6. 转向不附带整体加减速（系数和为 0）---
+  [ OK ] �四轮目标之和 = 4*60 = 240 : 240
+
+--- 7. 低速档 + 转向 ---
+  [ OK ] .1 SLOW+右转: 左轮 target=40 : 40
+  [ OK ] .2 SLOW+右转: 右前 target=20 : 20
+
+--- 8. 反馈为负 / 滑行 ---
+  [ OK ] ��为负: duty=40 (加速纠正) : 40
+  [ OK ] 8.2 反馈为负: dir=1 : 1
+  [ OK ] 滑行: duty=0 (不主动刹车) : 0
+
+=== tb_motion_decision: 32 checks, 0 errors ===
+RESULT: PASS

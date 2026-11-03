@@ -1,0 +1,156 @@
+﻿#=============================================================================
+# toolchain.local.ps1 —— 本机专属路径配置【模板】
+#-----------------------------------------------------------------------------
+# 【怎么用】
+#   1) 把本文件复制一份，改名去掉 .template：
+#          Copy-Item toolchain.local.ps1.template toolchain.local.ps1
+#   2) 打开 toolchain.local.ps1，把下面的路径改成你自己机器上的
+#   3) 之后所有 toolchain 脚本会自动读它，不用再手动传参
+#
+# 【为什么有这个东西】
+#   每个人的工具安装位置和工作目录都不一样：
+#       队友 B：D:\tools\modeltech64_2020.4
+#       队友 C：C:\modeltech64_2020.4
+#       你：    D:\modeltech64_2020.4
+#   如果把这些写死在脚本里，别人拉下来就跑不了。
+#
+# 【重要】toolchain.local.ps1 已被 .gitignore 排除，**不会入库** ——
+#         所以每个人的配置互不影响，也不会互相覆盖。
+#=============================================================================
+
+
+#=============================================================================
+# 一、ModelSim
+#=============================================================================
+# ModelSim 安装根目录（里面有 win64\ 这个子目录）
+#   典型值：'D:\modeltech64_2020.4'  或  'C:\modeltech64_2020.4'
+$LocalPaths = @{
+
+    #-------------------------------------------------------------------------
+    # ModelSim 安装根目录
+    #   验证方法（PowerShell）：
+    #       Test-Path 'D:\modeltech64_2020.4\win64\vsim.exe'   -> 应该 True
+    #-------------------------------------------------------------------------
+    ModelsimHome = 'D:\modeltech64_2020.4'
+
+    #-------------------------------------------------------------------------
+    # ModelSim 的 modelsim.ini
+    #   注意：**不要**把它拷贝到 sim\ 目录下！
+    #   那份 ini 里存的是绝对路径，工程一移动或路径含中文就会出现
+    #       init_dbinfo() DATABASE ERROR: (sqlite3_open ...) unable to open database file
+    #   这个报错和代码无关，纯粹是库映射路径问题。
+    #
+    #   验证方法：
+    #       Test-Path 'C:\modeltech64_2020.4\modelsim.ini'     -> 应该 True
+    #-------------------------------------------------------------------------
+    ModelsimIni = 'C:\modeltech64_2020.4\modelsim.ini'
+
+    #-------------------------------------------------------------------------
+    # Gowin 器件原语仿真库（已编译好的）
+    #   克隆仓库时**不含**这个库，需要自己用 setup_gowin_modelsim.ps1 生成一次。
+    #   生成后是一个目录，里面有 _info 文件和一堆 .v 编译产物。
+    #
+    #   验证方法：
+    #       Test-Path 'D:\modeltech64_2020.4\gw5a\_info'       -> 应该 True
+    #-------------------------------------------------------------------------
+    GowinSimLib = 'D:\modeltech64_2020.4\gw5a'
+
+    #-------------------------------------------------------------------------
+    # ★ work 库要放哪里
+    #
+    #   ⚠️ 必须是【纯 ASCII 路径】！
+    #      ModelSim 2020.4 在含中文的路径下无法创建 work 库
+    #      （本机用户名是「忆洛」，C:\Users\忆洛\... 必挂，已实测复现）
+    #
+    #   注意这里是**目录**，脚本会在其中创建 work 子目录。
+    #   验证方法：
+    #       Test-Path 'D:\gowin_lib'                            -> 应该 True
+    #-------------------------------------------------------------------------
+    WorkDir = 'D:\gowin_lib\work'
+
+    #-------------------------------------------------------------------------
+    # Gowin IDE 安装根目录（可选，目前只有查手册时才用得到）
+    #   典型值：'D:\Gowin\Gowin_V1.9.11.03_Education_x64'
+    #-------------------------------------------------------------------------
+    GowinHome = 'D:\Gowin\Gowin_V1.9.11.03_Education_x64'
+}
+
+
+#=============================================================================
+# 二、自动检查（可选但推荐）
+#-----------------------------------------------------------------------------
+#   取消下面这段的注释，脚本加载时会自动告诉你哪条路径不对。
+#   第一次配环境时非常有用 —— 能立刻定位是哪一项配错了。
+#=============================================================================
+<#
+Write-Host '--- toolchain.local.ps1 路径检查 ---' -ForegroundColor Cyan
+$checks = @(
+    @{ Name = 'ModelSim vsim.exe'; Path = (Join-Path $LocalPaths.ModelsimHome 'win64\vsim.exe') },
+    @{ Name = 'modelsim.ini';      Path = $LocalPaths.ModelsimIni },
+    @{ Name = 'Gowin 仿真库';      Path = (Join-Path $LocalPaths.GowinSimLib '_info') },
+    @{ Name = 'work 库父目录';     Path = (Split-Path $LocalPaths.WorkDir -Parent) }
+)
+$allOk = $true
+foreach ($c in $checks) {
+    if (Test-Path $c.Path) {
+        Write-Host "  [OK]   $($c.Name): $($c.Path)" -ForegroundColor Green
+    } else {
+        Write-Host "  [缺失] $($c.Name): $($c.Path)" -ForegroundColor Red
+        $allOk = $false
+    }
+}
+# work 库路径不能含中文
+if ($LocalPaths.WorkDir -match '[^\x00-\x7F]') {
+    Write-Host "  [错误] WorkDir 含非 ASCII 字符，ModelSim 会建库失败: $($LocalPaths.WorkDir)" -ForegroundColor Red
+    $allOk = $false
+}
+if ($allOk) { Write-Host '  全部通过 ✓' -ForegroundColor Green }
+else        { Write-Host '  请修正上面标红项后再跑脚本' -ForegroundColor Yellow }
+Write-Host ''
+#>
+
+
+#=============================================================================
+# 三、队友第一次配环境的完整步骤
+#=============================================================================
+#
+# 【第 0 步】确认 Python 可用（跑静态检查和协议模型用，不需要 ModelSim）
+#       python --version
+#
+# 【第 1 步】安装 ModelSim（如果还没装）
+#       本工程用 ModelSim SE-64 2020.4（Intel/Altera 版或 Mentor 版都行）
+#       装完后记下 win64\vsim.exe 的完整路径
+#
+# 【第 2 步】安装 Gowin IDE（如果需要综合上板）
+#       版本 V1.9.11.03 Education 或更新
+#
+# 【第 3 步】本文件改名
+#       Copy-Item toolchain.local.ps1.template toolchain.local.ps1
+#       然后编辑里面的路径
+#
+# 【第 4 步】生成 Gowin 原语仿真库（只需做一次）
+#       cd sim
+#       powershell -ExecutionPolicy Bypass -File toolchain\setup_gowin_modelsim.ps1
+#
+#       这一步会把 Gowin 的 prim_sim.v 编译进 ModelSim 的 gw5a 库。
+#       没做这一步的话，一旦代码例化 PLL 就会报
+#           Instantiation of 'PLL' failed. The design unit was not found
+#
+# 【第 5 步】生成 .do 脚本
+#       cd sim
+#       powershell -ExecutionPolicy Bypass -File toolchain\emit_dofiles.ps1
+#
+# 【第 6 步】不需要 ModelSim 就能做的验证（★ 建议先做这个）
+#       cd tools
+#       python rtl_lint.py ..\rtl ..\sim
+#       python verify_uart_frame_model.py
+#       cd ..\arm
+#       python uart_proto.py
+#
+# 【第 7 步】跑完整仿真回归
+#       cd sim
+#       powershell -ExecutionPolicy Bypass -File toolchain\run_tb.ps1
+#       # 期望：8 个 tb 全部 RESULT: PASS，共 271 项检查
+#
+# 详细说明见 doc/runbook_verify_toolchain.md
+#=============================================================================

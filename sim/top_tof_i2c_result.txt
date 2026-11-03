@@ -1,0 +1,62 @@
+=== tb_top_tof_i2c: 顶层 TOF 真实通路（I2C，无 force）===
+  参数: CLK=50000000Hz SCL=1000000Hz SAMPLE=1ms BOOT=1ms DIST_MAX=2000mm ADDR=0x29
+  阈值: STOP=200 SLOW=500 CLEAR=800 mm
+
+--- 1. 复位与释放 ---
+  [ OK ] 1.1 复位中 state=IDLE : 0
+  [ OK ] 1.2 复位中 m_en=0 : 0
+  [ OK ] 1.3 复位释放: led[0]=1 : 1
+  [ OK ] 1.4 未启动: state=IDLE : 0
+
+--- 2. ★ 真实 I2C 测距（无 force，靠从机模型出数）---
+  [ OK ] 2.1 收到 dist_valid（测距成功） : 1
+  [ OK ] 2.2 dist_mm == 1234 : 1234
+  [ OK ] 2.3 init 写 0x88=0x00 : 0
+  [ OK ] 2.4 init 写 0x44=0x00 : 0
+  [ OK ] 2.5 init 写 0x45=0x20 : 32
+  [ OK ] 2.6 写 0x00=0x01 启动测距 : 1
+  [ OK ] 2.7 写 0x0B=0x01 清中断 : 1
+  [ OK ] 2.8 轮询过 0x13 : 1
+  [ OK ] 2.9 读过 0x1E（距离高字节） : 1
+  [ OK ] 2.10 读过 0x1F（距离低字节） : 1
+
+--- 3. I2C 协议 ---
+  [ OK ] 3.1 出现过 START : 1
+  [ OK ] 3.2 出现过 STOP : 1
+  [ OK ] 3.3 收到 地址+W : 1
+  [ OK ] 3.4 收到 地址+R : 1
+  [ OK ] 3.5 ★复合读用了重复START : 1
+  [ OK ] 3.6 地址没错过 : 0
+  [ OK ] 3.7 ★SCL 高时 SDA 稳定 : 0
+
+--- 4. 距离 -> 行为 ---
+  [ OK ] 4.1 启动: state=AUTO : 2
+  [ OK ] 4.2 1234mm(远): speed=FULL : 2
+  [ OK ] 4.3 1234mm: m_en=1 : 1
+  [ OK ] 4.4 第二帧有效 : 1
+  [ OK ] 4.5 dist_mm == 950 : 950
+  [ OK ] 4.6 950mm(>CLEAR): speed=FULL : 2
+  [ OK ] 4.7 150mm: 收到有效读数 : 1
+  [ OK ] 4.8 ★150mm(< STOP): state=AVOID : 3
+  [ OK ] 4.9 ★AVOID: m_en=0（停车） : 0
+  [ OK ] 4.10 AVOID: led[2]=1 : 1
+
+--- 5. ★ 超量程读数 -> dist_err + 限速 ---
+  [ OK ] 5.1 超量程 -> dist_err : 1
+  [ OK ] 5.2 无效读数不刷新 dist_mm : 150
+  [ OK ] 5.3 读数失效: 仍在 AVOID : 3
+  [ OK ] 5.4 ★读数失效: speed=SLOW（限速） : 1
+  [ OK ] 5.5 ★读数失效: m_en=1（不冒进但也没停死） : 1
+
+--- 6. 恢复 ---
+  [ OK ] 6.1 恢复 -> dist_valid : 1
+  [ OK ] 6.2 dist_mm == 1234 : 1234
+  [ OK ] 6.3 1234mm: state=AUTO : 2
+  [ OK ] 6.4 1234mm: speed=FULL : 2
+  [ OK ] 6.5 1234mm: m_en=1 : 1
+
+--- 7. 周期采样 ---
+  [ OK ] 7.1 4ms 内至少两帧 : 1
+
+=== tb_top_tof_i2c: 42 checks, 0 errors ===
+RESULT: PASS

@@ -1,0 +1,479 @@
+﻿Reading pref.tcl
+
+# 2020.4
+
+# do compile_all.do
+# D:/modeltech64_2020.4/gw5a
+# gw5a
+# D:/gowin_lib/work
+# Model Technology ModelSim SE-64 vmap 2020.4 Lib Mapping Utility 2020.10 Oct 13 2020
+# vmap work D:/gowin_lib/work 
+# Modifying modelsim.ini
+# Model Technology ModelSim SE-64 vmap 2020.4 Lib Mapping Utility 2020.10 Oct 13 2020
+# vmap gw5a D:/modeltech64_2020.4/gw5a 
+# Modifying modelsim.ini
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 23:32:11 on Oct 30,2026
+# vlog -work work "+incdir+"../rtl"" ../rtl/hal/reset_sync.v 
+# -- Compiling module reset_sync
+# 
+# Top level modules:
+# 	reset_sync
+# End time: 23:32:11 on Oct 30,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 23:32:11 on Oct 30,2026
+# vlog -work work "+incdir+"../rtl"" ../rtl/hal/clk_gen.v 
+# -- Compiling module clk_gen
+# 
+# Top level modules:
+# 	clk_gen
+# End time: 23:32:11 on Oct 30,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 23:32:11 on Oct 30,2026
+# vlog -work work "+incdir+"../rtl"" ../rtl/driver/pwm_motor.v 
+# -- Compiling module pwm_motor
+# 
+# Top level modules:
+# 	pwm_motor
+# End time: 23:32:11 on Oct 30,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 23:32:11 on Oct 30,2026
+# vlog -work work "+incdir+"../rtl"" ../rtl/driver/encoder_decode.v 
+# -- Compiling module encoder_decode
+# 
+# Top level modules:
+# 	encoder_decode
+# End time: 23:32:11 on Oct 30,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 23:32:11 on Oct 30,2026
+# vlog -work work "+incdir+"../rtl"" ../rtl/driver/uart_tx.v 
+# -- Compiling module uart_tx
+# 
+# Top level modules:
+# 	uart_tx
+# End time: 23:32:11 on Oct 30,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 23:32:11 on Oct 30,2026
+# vlog -work work "+incdir+"../rtl"" ../rtl/driver/uart_rx.v 
+# -- Compiling module uart_rx
+# 
+# Top level modules:
+# 	uart_rx
+# End time: 23:32:11 on Oct 30,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 23:32:11 on Oct 30,2026
+# vlog -work work "+incdir+"../rtl"" ../rtl/app/main_fsm.v 
+# -- Compiling module main_fsm
+# 
+# Top level modules:
+# 	main_fsm
+# End time: 23:32:12 on Oct 30,2026, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 23:32:12 on Oct 30,2026
+# vlog -work work "+incdir+"../rtl"" ../rtl/app/motion_decision.v 
+# -- Compiling module motion_decision
+# 
+# Top level modules:
+# 	motion_decision
+# End time: 23:32:12 on Oct 30,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 23:32:12 on Oct 30,2026
+# vlog -work work "+incdir+"../rtl"" ../rtl/app/uart_frame.v 
+# -- Compiling module uart_frame
+# 
+# Top level modules:
+# 	uart_frame
+# End time: 23:32:12 on Oct 30,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 23:32:12 on Oct 30,2026
+# vlog -work work "+incdir+"../rtl"" ../rtl/app/vision_rx.v 
+# -- Compiling module vision_rx
+# 
+# Top level modules:
+# 	vision_rx
+# End time: 23:32:12 on Oct 30,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 23:32:12 on Oct 30,2026
+# vlog -work work "+incdir+"../rtl"" ../rtl/app/rc_rx.v 
+# -- Compiling module rc_rx
+# 
+# Top level modules:
+# 	rc_rx
+# End time: 23:32:12 on Oct 30,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 23:32:12 on Oct 30,2026
+# vlog -work work "+incdir+"../rtl"" ../rtl/app/stance_ctrl.v 
+# -- Compiling module stance_ctrl
+# 
+# Top level modules:
+# 	stance_ctrl
+# End time: 23:32:12 on Oct 30,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 23:32:12 on Oct 30,2026
+# vlog -work work "+incdir+"../rtl"" ../rtl/app/config_rx.v 
+# -- Compiling module config_rx
+# 
+# Top level modules:
+# 	config_rx
+# End time: 23:32:12 on Oct 30,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 23:32:12 on Oct 30,2026
+# vlog -work work "+incdir+"../rtl"" ../rtl/app/telemetry_tx.v 
+# -- Compiling module telemetry_tx
+# 
+# Top level modules:
+# 	telemetry_tx
+# End time: 23:32:12 on Oct 30,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 23:32:12 on Oct 30,2026
+# vlog -work work "+incdir+"../rtl"" ../rtl/driver/servo_lift.v 
+# -- Compiling module servo_lift
+# 
+# Top level modules:
+# 	servo_lift
+# End time: 23:32:12 on Oct 30,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 23:32:12 on Oct 30,2026
+# vlog -work work "+incdir+"../rtl"" ../rtl/driver/pca9685_drv.v 
+# -- Compiling module pca9685_drv
+# 
+# Top level modules:
+# 	pca9685_drv
+# End time: 23:32:12 on Oct 30,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 23:32:12 on Oct 30,2026
+# vlog -work work "+incdir+"../rtl"" ../rtl/driver/i2c_master.v 
+# -- Compiling module i2c_master
+# 
+# Top level modules:
+# 	i2c_master
+# End time: 23:32:13 on Oct 30,2026, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 23:32:13 on Oct 30,2026
+# vlog -work work "+incdir+"../rtl"" ../rtl/driver/i2c_bus_arb.v 
+# -- Compiling module i2c_bus_arb
+# 
+# Top level modules:
+# 	i2c_bus_arb
+# End time: 23:32:13 on Oct 30,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 23:32:13 on Oct 30,2026
+# vlog -work work "+incdir+"../rtl"" ../rtl/driver/tof_driver.v 
+# -- Compiling module tof_driver
+# 
+# Top level modules:
+# 	tof_driver
+# End time: 23:32:13 on Oct 30,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 23:32:13 on Oct 30,2026
+# vlog -work work "+incdir+"../rtl"" ../rtl/driver/tof_sr04.v 
+# -- Compiling module tof_sr04
+# 
+# Top level modules:
+# 	tof_sr04
+# End time: 23:32:13 on Oct 30,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 23:32:13 on Oct 30,2026
+# vlog -work work "+incdir+"../rtl"" ../rtl/driver/imu_driver.v 
+# -- Compiling module imu_driver
+# 
+# Top level modules:
+# 	imu_driver
+# End time: 23:32:13 on Oct 30,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 23:32:13 on Oct 30,2026
+# vlog -work work "+incdir+"../rtl"" ../rtl/driver/motor_guard.v 
+# -- Compiling module motor_guard
+# 
+# Top level modules:
+# 	motor_guard
+# End time: 23:32:13 on Oct 30,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 23:32:13 on Oct 30,2026
+# vlog -work work "+incdir+"../rtl"" ../rtl/top.v 
+# -- Compiling module top
+# 
+# Top level modules:
+# 	top
+# End time: 23:32:13 on Oct 30,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 23:32:13 on Oct 30,2026
+# vlog -work work "+incdir+"../rtl"" vl53l0x_slave_model.v 
+# -- Compiling module vl53l0x_slave_model
+# 
+# Top level modules:
+# 	vl53l0x_slave_model
+# End time: 23:32:13 on Oct 30,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 23:32:13 on Oct 30,2026
+# vlog -work work "+incdir+"../rtl"" pll_elab_probe.v 
+# -- Compiling module pll_elab_probe
+# 
+# Top level modules:
+# 	pll_elab_probe
+# End time: 23:32:13 on Oct 30,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 23:32:13 on Oct 30,2026
+# vlog -work work "+incdir+"../rtl"" mpu6050_slave_model.v 
+# -- Compiling module mpu6050_slave_model
+# 
+# Top level modules:
+# 	mpu6050_slave_model
+# End time: 23:32:13 on Oct 30,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 23:32:13 on Oct 30,2026
+# vlog -work work "+incdir+"../rtl"" pca9685_slave_model.v 
+# -- Compiling module pca9685_slave_model
+# 
+# Top level modules:
+# 	pca9685_slave_model
+# End time: 23:32:14 on Oct 30,2026, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 23:32:14 on Oct 30,2026
+# vlog -work work "+incdir+"../rtl"" tb_reset_sync.v 
+# -- Compiling module tb_reset_sync
+# 
+# Top level modules:
+# 	tb_reset_sync
+# End time: 23:32:14 on Oct 30,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 23:32:14 on Oct 30,2026
+# vlog -work work "+incdir+"../rtl"" tb_clk_gen.v 
+# -- Compiling module tb_clk_gen
+# 
+# Top level modules:
+# 	tb_clk_gen
+# End time: 23:32:14 on Oct 30,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 23:32:14 on Oct 30,2026
+# vlog -work work "+incdir+"../rtl"" tb_pwm_motor.v 
+# -- Compiling module tb_pwm_motor
+# 
+# Top level modules:
+# 	tb_pwm_motor
+# End time: 23:32:14 on Oct 30,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 23:32:14 on Oct 30,2026
+# vlog -work work "+incdir+"../rtl"" tb_encoder_decode.v 
+# -- Compiling module tb_encoder_decode
+# 
+# Top level modules:
+# 	tb_encoder_decode
+# End time: 23:32:14 on Oct 30,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 23:32:14 on Oct 30,2026
+# vlog -work work "+incdir+"../rtl"" tb_uart.v 
+# -- Compiling module tb_uart
+# 
+# Top level modules:
+# 	tb_uart
+# End time: 23:32:14 on Oct 30,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 23:32:14 on Oct 30,2026
+# vlog -work work "+incdir+"../rtl"" tb_uart_frame.v 
+# -- Compiling module tb_uart_frame
+# 
+# Top level modules:
+# 	tb_uart_frame
+# End time: 23:32:14 on Oct 30,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 23:32:14 on Oct 30,2026
+# vlog -work work "+incdir+"../rtl"" tb_main_fsm.v 
+# -- Compiling module tb_main_fsm
+# 
+# Top level modules:
+# 	tb_main_fsm
+# End time: 23:32:14 on Oct 30,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 23:32:14 on Oct 30,2026
+# vlog -work work "+incdir+"../rtl"" tb_motion_decision.v 
+# -- Compiling module tb_motion_decision
+# 
+# Top level modules:
+# 	tb_motion_decision
+# End time: 23:32:14 on Oct 30,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 23:32:14 on Oct 30,2026
+# vlog -work work "+incdir+"../rtl"" tb_servo_lift.v 
+# -- Compiling module tb_servo_lift
+# 
+# Top level modules:
+# 	tb_servo_lift
+# End time: 23:32:14 on Oct 30,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 23:32:14 on Oct 30,2026
+# vlog -work work "+incdir+"../rtl"" tb_tof_driver.v 
+# -- Compiling module tb_tof_driver
+# 
+# Top level modules:
+# 	tb_tof_driver
+# End time: 23:32:15 on Oct 30,2026, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 23:32:15 on Oct 30,2026
+# vlog -work work "+incdir+"../rtl"" tb_top_integration.v 
+# -- Compiling module tb_top_integration
+# 
+# Top level modules:
+# 	tb_top_integration
+# End time: 23:32:15 on Oct 30,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 23:32:15 on Oct 30,2026
+# vlog -work work "+incdir+"../rtl"" tb_top_tof_i2c.v 
+# -- Compiling module tb_top_tof_i2c
+# 
+# Top level modules:
+# 	tb_top_tof_i2c
+# End time: 23:32:15 on Oct 30,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 23:32:15 on Oct 30,2026
+# vlog -work work "+incdir+"../rtl"" tb_top_i2c_share.v 
+# -- Compiling module tb_top_i2c_share
+# 
+# Top level modules:
+# 	tb_top_i2c_share
+# End time: 23:32:15 on Oct 30,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 23:32:15 on Oct 30,2026
+# vlog -work work "+incdir+"../rtl"" tb_gowin_prim.v 
+# -- Compiling module tb_gowin_prim
+# 
+# Top level modules:
+# 	tb_gowin_prim
+# End time: 23:32:15 on Oct 30,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 23:32:15 on Oct 30,2026
+# vlog -work work "+incdir+"../rtl"" tb_imu_driver.v 
+# -- Compiling module tb_imu_driver
+# 
+# Top level modules:
+# 	tb_imu_driver
+# End time: 23:32:15 on Oct 30,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 23:32:15 on Oct 30,2026
+# vlog -work work "+incdir+"../rtl"" tb_motor_guard.v 
+# -- Compiling module tb_motor_guard
+# 
+# Top level modules:
+# 	tb_motor_guard
+# End time: 23:32:15 on Oct 30,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 23:32:15 on Oct 30,2026
+# vlog -work work "+incdir+"../rtl"" tb_config_rx.v 
+# -- Compiling module tb_config_rx
+# 
+# Top level modules:
+# 	tb_config_rx
+# End time: 23:32:15 on Oct 30,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 23:32:15 on Oct 30,2026
+# vlog -work work "+incdir+"../rtl"" tb_rc_rx.v 
+# -- Compiling module tb_rc_rx
+# 
+# Top level modules:
+# 	tb_rc_rx
+# End time: 23:32:15 on Oct 30,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 23:32:15 on Oct 30,2026
+# vlog -work work "+incdir+"../rtl"" tb_sr04_driver.v 
+# -- Compiling module tb_sr04_driver
+# 
+# Top level modules:
+# 	tb_sr04_driver
+# End time: 23:32:15 on Oct 30,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 23:32:15 on Oct 30,2026
+# vlog -work work "+incdir+"../rtl"" tb_telemetry_check.v 
+# -- Compiling module tb_telemetry_check
+# 
+# Top level modules:
+# 	tb_telemetry_check
+# End time: 23:32:16 on Oct 30,2026, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 23:32:16 on Oct 30,2026
+# vlog -work work "+incdir+"../rtl"" tb_telemetry_payload.v 
+# -- Compiling module tb_telemetry_payload
+# 
+# Top level modules:
+# 	tb_telemetry_payload
+# End time: 23:32:16 on Oct 30,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 23:32:16 on Oct 30,2026
+# vlog -work work "+incdir+"../rtl"" tb_motion_loop.v 
+# -- Compiling module tb_motion_loop
+# 
+# Top level modules:
+# 	tb_motion_loop
+# End time: 23:32:16 on Oct 30,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 23:32:16 on Oct 30,2026
+# vlog -work work "+incdir+"../rtl"" tb_pca9685_drv.v 
+# -- Compiling module tb_pca9685_drv
+# 
+# Top level modules:
+# 	tb_pca9685_drv
+# End time: 23:32:16 on Oct 30,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE-64 vlog 2020.4 Compiler 2020.10 Oct 13 2020
+# Start time: 23:32:16 on Oct 30,2026
+# vlog -work work "+incdir+"../rtl"" tb_top_servo_pca.v 
+# -- Compiling module tb_top_servo_pca
+# 
+# Top level modules:
+# 	tb_top_servo_pca
+# End time: 23:32:16 on Oct 30,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+########## COMPILE DONE ##########
+# If there is no Error above, run run_sim.do next.
+# Gowin primitive lib: D:/modeltech64_2020.4/gw5a
+ModelSim> # 
+# <EOF>

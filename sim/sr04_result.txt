@@ -1,0 +1,86 @@
+=== tb_sr04_driver: HC-SR04 超声波驱动自检 ===
+  参数: CLK=50000000Hz SAMPLE=30ms TMO=24ms TRIG=10us MIN=20mm MAX=3200mm BOOT=2ms
+  说明: CLK/TRIG_US 用真实值(50MHz/10us)；SAMPLE/TMO/MAX 缩小以缩短仿真,
+        比例关系与真实配置(60ms/40ms/4000mm)一致。
+        模型: 0.5ms 建立 -> echo 宽度 = 2*d/343s (按 50MHz 换成拍)
+
+--- 1. 复位 / 上电等待 ---
+  [ OK ] 1.1 复位后 trig=0 : 0
+  [ OK ] 1.2 复位后 dist_valid 无脉冲 : 0
+  [ OK ] 1.3 复位后 dist_err 无脉冲 : 0
+  [ OK ] 1.4 复位后 dist_mm=0 : 0
+  [ OK ] 1.5 复位后 ok_cnt=0 : 0
+  [ OK ] 1.6 上电窗口内未发 trig : 0
+  [ OK ] 1.7 上电窗口内无结果脉冲 : 0
+
+--- 2. 正常测距 1000mm ---
+  [ OK ] 2.1 1000mm 收到 dist_valid : 1
+  [ OK ] 2.2 dist_mm=1000+-10 : got=1000 exp=1000(+-10)
+  [ OK ] 2.3 1000mm 无 dist_err : 0
+  [info] trig 脉宽 = 10us (期望 10us)
+  [ OK ] 2.4 trig 脉宽=TRIG_US+-1us : got=10 exp=10(+-1)
+
+--- 3. 测量周期 / 4. 换算系数抽查 ---
+  [ OK ] 3.1 第二帧收到 dist_valid : 1
+  [info] trig 周期 = 30000us (期望 30000us)
+  [ OK ] 3.2 测量周期=SAMPLE_MS+-10% : got=30000 exp=30000(+-3000)
+  [ OK ] 4.1 200mm -> dist_mm +-10 : got=200 exp=200(+-10)
+  [ OK ] 4.2 2000mm 收到 dist_valid : 1
+  [ OK ] 4.3 2000mm -> dist_mm +-10 : got=2001 exp=2000(+-10)
+  [ OK ] 4.4 2000mm 无 dist_err : 0
+  [ OK ] 4.5 3000mm 收到 dist_valid : 1
+  [ OK ] 4.6 3000mm -> dist_mm +-10 : got=3002 exp=3000(+-10)
+  [ OK ] 4.7 3000mm 无 dist_err : 0
+
+--- 5. 无回波（等上升沿超时）---
+  [ OK ] 5.1 无回波 -> dist_err : 1
+  [ OK ] 5.2 无回波 -> 本次只有1个err : 1
+  [ OK ] 5.3 无回波 -> 无 dist_valid : 4
+  [ OK ] 5.4 无回波 -> dist_mm 保持 : 3002
+  [ OK ] 5.5 无回波 -> DUT dist_mm 保持 : 3002
+
+--- 6. 回波太近（< MIN_MM=20mm）---
+  [ OK ] 6.1 10mm -> dist_err : 1
+  [ OK ] 6.2 10mm -> 只有1个err脉冲 : 2
+  [ OK ] 6.3 10mm -> 无 dist_valid : 4
+  [ OK ] 6.4 10mm -> dist_mm 保持不变 : 3002
+
+--- 7. 回波太远（> MAX_MM=3200mm）---
+  [ OK ] 7.1 3500mm -> dist_err : 1
+  [ OK ] 7.2 3500mm -> 只有1个err脉冲 : 3
+  [ OK ] 7.3 3500mm -> 无 dist_valid : 4
+  [ OK ] 7.4 3500mm -> dist_mm 保持 : 3002
+  [info] 超量程报错时刻 = trig 后 20908us (TMO=24000us)
+  [ OK ] 7.5 超量程在回波结束时报错(非超时) : 1
+
+--- 8. echo 不掉（量宽度超时）---
+  [ OK ] 8.1 echo 不落 -> dist_err : 1
+  [ OK ] 8.2 echo 不落 -> 只有1个err脉冲 : 4
+  [ OK ] 8.3 echo 不落 -> 无 dist_valid : 4
+  [ OK ] 8.4 echo 不落 -> dist_mm 保持 : 3002
+  [ OK ] 8.5 模型释放后 echo=0 : 0
+
+--- 9. 单拍脉冲 / valid-err 互斥 ---
+  [ OK ] 9.1 dist_valid 从不连续两拍 : 0
+  [ OK ] 9.2 dist_err 从不连续两拍 : 0
+  [ OK ] 9.3 valid 与 err 从不同拍 : 0
+
+--- 10. 连续 3 次正常测距 -> ok_cnt ---
+  [ OK ] 10.1 连续正常第1帧 dist_valid : 1
+  [ OK ] 10.2 连续正常第2帧 dist_valid : 1
+  [ OK ] 10.3 连续正常第3帧 dist_valid : 1
+  [ OK ] 10.4 ok_cnt 恰好增 3 : 7
+  [ OK ] 10.5 第3次 dist_mm=500+-10 : got=500 exp=500(+-10)
+
+--- 11. 复位清状态 / 恢复 ---
+  [ OK ] 11.1 复位后 trig=0 : 0
+  [ OK ] 11.2 复位清 ok_cnt : 0
+  [ OK ] 11.3 复位清 err_cnt : 0
+  [ OK ] 11.4 复位清 dist_mm : 0
+  [ OK ] 11.5 复位后恢复出数 : 1
+  [ OK ] 11.6 恢复后 dist_mm=1500+-10 : got=1501 exp=1500(+-10)
+
+  [info] 累计: trig=12 次, dist_valid=8 次, dist_err=4 次
+
+=== tb_sr04_driver: 53 checks, 0 errors ===
+RESULT: PASS

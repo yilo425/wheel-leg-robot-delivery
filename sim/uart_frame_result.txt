@@ -1,0 +1,117 @@
+=== tb_uart_frame ===
+  [info] CLK=100000000 BAUD=115200 BIT_CLKS=868
+  [info] FRAME_TIMEOUT=1 ms = 100000 clk
+  [info] MAX_PAYLOAD=64 FRAME_OVERHEAD=9
+
+--- 1. 复位后空闲 ---
+  [ OK ] �位中 tx_pin 应为高(空闲) : 1
+  [ OK ] 1.2 复位释放: 无 rx_valid : 0
+  [ OK ] 1.3 复位释放: 无 rx_bcc_err : 0
+  [ OK ] 1.4 复位释放: 无 rx_timeout : 0
+  [ OK ] 1.5 复位释放: tx_busy=0 : 0
+  [ OK ] 1.6 frame_ok_cnt=0 : 0
+
+--- 2. RX 正常帧（8 字节载荷）---
+  [ OK ] 2.1 收到 rx_valid : 1
+  [ OK ] 2.2 rx_type : 2
+  [ OK ] 2.3 rx_len : 8
+  [ OK ] 2.3.0 载荷[0] : 16
+  [ OK ] 2.3.1 载荷[1] : 17
+  [ OK ] 2.3.2 载荷[2] : 18
+  [ OK ] 2.3.3 载荷[3] : 19
+  [ OK ] 2.3.4 载荷[4] : 20
+  [ OK ] 2.3.5 载荷[5] : 21
+  [ OK ] 2.3.6 载荷[6] : 22
+  [ OK ] 2.3.7 载荷[7] : 23
+  [ OK ] 2.4 无 bcc 错 : 0
+  [ OK ] 2.5 无 timeout : 0
+
+--- 3. RX 空载荷帧 (len=0) ---
+  [ OK ] 3.1 空载荷也能收 : 1
+  [ OK ] 3.2 rx_len=0 : 0
+  [ OK ] 3.3 帧长 = 9 : 9
+
+--- 4. RX 载荷恰好 = MAX_PAYLOAD ---
+  [ OK ] 4.1 满载荷能收 : 1
+  [ OK ] 4.2 rx_len=64 : 64
+  [ OK ] 4.3 帧长 = 73 : 73
+
+--- 5. RX BCC 错 ---
+  [ OK ] 5.1 检测到 rx_bcc_err : 1
+  [ OK ] 5.2 不交付 (无 rx_valid) : 0
+  [ OK ] �BCC 错后仍能收到下一帧 : 1
+  [ OK ] 5.4 下一帧类型正确 : 2
+
+--- 6. RX 未知类型（必须收完但不交付）---
+  [ OK ] 6.1 未知类型被丢弃 : 1
+  [ OK ] 6.2 未知类型不交付 : 0
+  [ OK ] ��类型后仍能收到正常帧 : 1
+  [ OK ] 6.4 类型正确 : 3
+
+--- 7. RX 前导噪声 AA AA AA + 正常帧 ---
+  [ OK ] ��前导噪声后仍能解出帧 : 1
+  [ OK ] 7.2 类型正确 : 3
+  [ OK ] 7.3 纯噪声不误触发 : 0
+
+--- 8. RX 帧内超时 ---
+  [ OK ] 8.1 检测到 rx_timeout : 1
+  [ OK ] 8.2 超时未交付残帧 : 0
+  [ OK ] ��超时后能立刻恢复接收 : 1
+
+--- 9. RX 长度超上限 ---
+  [ OK ] 9.0 构造的帧长 = 89 : 89
+  [ OK ] 9.1 超长帧被丢弃 : 1
+  [ OK ] 9.2 超长帧不交付 : 0
+  [ OK ] 9.3 超长时 BCC 是通过的 : 0
+
+--- 10. TX：主动发一帧，校验引脚上的字节序列 ---
+    [tx] byte0 起始位 @ 23884325000 ns
+    [tx] byte0 = 0xaa  结束 @ 23966785000 ns
+    [tx] byte1 起始位 @ 23971155000 ns
+    [tx] byte1 = 0x55  结束 @ 24053615000 ns
+    [tx] byte2 起始位 @ 24057985000 ns
+    [tx] byte2 = 0x01  结束 @ 24140445000 ns
+    [tx] byte3 起始位 @ 24144815000 ns
+    [tx] byte3 = 0x10  结束 @ 24227275000 ns
+    [tx] byte4 起始位 @ 24231645000 ns
+    [tx] byte4 = 0x00  结束 @ 24314105000 ns
+    [tx] byte5 起始位 @ 24318475000 ns
+    [tx] byte5 = 0x04  结束 @ 24400935000 ns
+    [tx] byte6 起始位 @ 24405305000 ns
+    [tx] byte6 = 0xa0  结束 @ 24487765000 ns
+    [tx] byte7 起始位 @ 24492135000 ns
+    [tx] byte7 = 0xa1  结束 @ 24574595000 ns
+    [tx] byte8 起始位 @ 24578965000 ns
+    [tx] byte8 = 0xa2  结束 @ 24661425000 ns
+    [tx] byte9 起始位 @ 24665795000 ns
+    [tx] byte9 = 0xa3  结束 @ 24748255000 ns
+    [tx] byte10 起始位 @ 24752625000 ns
+    [tx] byte10 = 0x15  结束 @ 24835085000 ns
+    [tx] byte11 起始位 @ 24839455000 ns
+    [tx] byte11 = 0x55  结束 @ 24921915000 ns
+    [tx] byte12 起始位 @ 24926285000 ns
+    [tx] byte12 = 0xaa  结束 @ 25008745000 ns
+  [ OK ] 10.1 TX 帧头1 = 0xAA : 170
+  [ OK ] 10.2 TX 帧头2 = 0x55 : 85
+  [ OK ] 10.3 TX 版本 : 1
+  [ OK ] 10.4 TX 类型 : 16
+  [ OK ] 10.5 TX 长度高字节 : 0
+  [ OK ] 10.6 TX 长度低字节 : 4
+  [ OK ] 10.7 TX 载荷[0] : 160
+  [ OK ] 10.8 TX 载荷[3] : 163
+  [ OK ] TX BCC = 01^10^00^04^A0^A1^A2^A3 : 21
+  [ OK ] 10.10 TX 帧尾1 = 0x55 : 85
+  [ OK ] 10.11 TX 帧尾2 = 0xAA : 170
+  [info] 等 tx_busy 落用了 435 拍 (半个比特 = 434)
+  [ OK ] 10.12 发完后 tx_busy=0 : 0
+  [info] TX 实际完成字节数 = 1 (期望 13)
+  [info] 发完后 tx_busy=0  tx_pin=1  tx_done_dut=1
+
+--- 11. 统计计数 ---
+  [info] frame_ok_cnt = 7, frame_err_cnt = 4
+  [ OK ] 11.1 frame_ok_cnt = 7 : 7
+  [ OK ] 11.2 frame_err_cnt = 4 : 4
+  [ OK ] 11.3 累计无 errors : 0
+
+=== tb_uart_frame: 58 checks, 0 errors ===
+RESULT: PASS

@@ -1,0 +1,6 @@
+  [ OK ] 1.1 uart_tx 有跳变（telemetry 真的在发）
+  [ OK ] 1.2 收到了完整 UART 字节
+  [ OK ] 1.3 uart_tx_dbg 与 uart_tx 同相
+
+=== tb_telemetry_check: 3 checks, 0 errors ===
+RESULT: PASS

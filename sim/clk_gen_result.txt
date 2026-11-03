@@ -1,0 +1,28 @@
+=== tb_clk_gen ===
+  [info] 只测旁路模式；PLL 未填，见 clk_gen.v 说明
+
+--- 1. 复位期间 ---
+  [ OK ] ��: 复位期间 locked 仍为 1 : 1
+
+--- 2. 旁路：clk_sys 必须就是 clk_in ---
+  [ OK ] �: clk_sys === clk_in (电平 1) : 1
+  [ OK ] 2 旁路: 连续 20 拍都跟随 : 20
+
+--- 3. 旁路：周期就是 20ns ---
+  [info] clk_sys 实测周期 = 20 ns (期望 20)
+  [ OK ] 3.1 clk_sys 周期 = 20ns : 20
+  [ OK ] 3.2 clk_in  周期 = 20ns : 20
+
+--- 4. * 未填 PLL 时的安全兜底 ---
+  [info] BYPASS=0 但 g_pll 分支是空的
+  [ OK ] 1 未填 PLL: locked 必须为 0 : 0
+  [info] locked=0 -> top 的 reset_sync 不会释放复位
+  [info] 现象：上电后 led[0] 不亮，一眼看出时钟没起来
+  [ OK ] �� PLL: clk_sys 仍跟随 clk_in : 1
+
+--- 5. 旁路模式下长时间运行 ---
+  [ OK ] 5.1 200 拍后 locked 仍为 1 : 1
+  [ OK ] 5.2 200 拍后 clk_sys 仍跟随 : 1
+
+=== tb_clk_gen: 9 checks, 0 errors ===
+RESULT: PASS

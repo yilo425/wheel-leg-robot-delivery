@@ -1,0 +1,293 @@
+﻿=== run_all.ps1  2026-10-30 23:32:16 ===
+---------- tb_reset_sync ----------
+Reading pref.tcl
+
+# 2020.4
+
+# set TB tb_reset_sync
+# tb_reset_sync
+#  do vcd.do
+# gw5a
+# 0
+# tb_reset_sync.vcd
+############################################################
+# VCD dump: tb_reset_sync   (max time: 0 ns, 0 = run to end)
+############################################################
+# vsim -c -quiet -voptargs=""+acc"" -L work -L gw5a work.tb_reset_sync 
+# Start time: 23:32:18 on Oct 30,2026
+# ** Note: (vsim-3812) Design is being optimized...
+# //  ModelSim SE-64 2020.4 Oct 13 2020
+# //
+# //  Copyright 1991-2020 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  ModelSim SE-64 and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+# === tb_reset_sync ===
+#   [info] CLK_PERIOD=10 SYNC_STAGES=3 POR_CYCLES=64
+#   [ OK ] c assert: rst_n_por ???????????? : 0
+#   [ OK ]  assert: rst_n_sync ???????????? : 0
+#   [ OK ] B1. ????��????: rst_n_sync ?????? : 0
+#   [ OK ] . ??? SYNC_STAGES-1 ???????????? : 0
+#   [ OK ] B3. ??? SYNC_STAGES ????��????��?? : 1
+#   [ OK ] C1. POR ��?��???: rst_n_por ???��?? : 1
+#   [ OK ] . ???????��????: rst_n_por ?????? : 0
+#   [ OK ]  POR ???��??: rst_n_por ????????? : 0
+#   [ OK ] C4. POR ??????: rst_n_por ???��?? : 1
+#   [ OK ] ???????��???��?: rst_n_sync ?????? : 0
+#   [ OK ]  ??????��?????: rst_n_sync ???��?? : 1
+# === tb_reset_sync: 11 checks, 0 errors ===
+# RESULT: PASS
+# ** Note: $stop    : tb_reset_sync.v(196)
+#    Time: 1756 ns  Iteration: 0  Instance: /tb_reset_sync
+# Break in Module tb_reset_sync at tb_reset_sync.v line 196
+# Stopped at tb_reset_sync.v line 196
+# End time: 23:32:20 on Oct 30,2026, Elapsed time: 0:00:02
+# Errors: 0, Warnings: 0
+
+---------- tb_pwm_motor ----------
+Reading pref.tcl
+
+# 2020.4
+
+# set TB tb_pwm_motor
+# tb_pwm_motor
+#  do vcd.do
+# gw5a
+# 0
+# tb_pwm_motor.vcd
+############################################################
+# VCD dump: tb_pwm_motor   (max time: 0 ns, 0 = run to end)
+############################################################
+# vsim -c -quiet -voptargs=""+acc"" -L work -L gw5a work.tb_pwm_motor 
+# Start time: 23:32:22 on Oct 30,2026
+# ** Note: (vsim-3812) Design is being optimized...
+# //  ModelSim SE-64 2020.4 Oct 13 2020
+# //
+# //  Copyright 1991-2020 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  ModelSim SE-64 and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+# === tb_pwm_motor ===
+#   [ OK ] disabled: duty_actual : 0
+#   [ OK ] disabled: high cnt : 0
+#   [ OK ] 50%: dir_out=dir_in : 1
+#   [ OK ] 50%: duty_actual : 50
+#   [ OK ] 50%: high cnt : 50
+#   [ OK ] 25%: high cnt : 25
+#   [ OK ] rev: dir_out=dir_in : 0
+#   [ OK ] rev: duty_actual : -25
+#   [ OK ] rev: high cnt (??????) : 25
+#   [ OK ] neg duty: dir_out : 1
+#   [ OK ] neg duty: duty_actual : 25
+#   [ OK ] neg duty: high cnt : 25
+#   [ OK ] deadband ??????: dir_out : 0
+#   [ OK ] deadband: high cnt : 0
+#   [ OK ] deadband: dir ??????????????? : 0
+#   [ OK ] deadband edge: high cnt : 4
+#   [ OK ] deadband edge: dir ?????�� : 1
+#   [ OK ] clamp: dir_out : 1
+#   [ OK ] clamp: duty_actual : 100
+#   [ OK ] clamp: high cnt : 100
+#   [ OK ] zero: high cnt : 0
+# === tb_pwm_motor: 21 checks, 0 errors ===
+# RESULT: PASS
+# ** Note: $stop    : tb_pwm_motor.v(223)
+#    Time: 361050 ns  Iteration: 1  Instance: /tb_pwm_motor
+# Break in Module tb_pwm_motor at tb_pwm_motor.v line 223
+# Stopped at tb_pwm_motor.v line 223
+# End time: 23:32:24 on Oct 30,2026, Elapsed time: 0:00:02
+# Errors: 0, Warnings: 0
+
+---------- tb_encoder_decode ----------
+Reading pref.tcl
+
+# 2020.4
+
+# set TB tb_encoder_decode
+# tb_encoder_decode
+#  do vcd.do
+# gw5a
+# 0
+# tb_encoder_decode.vcd
+############################################################
+# VCD dump: tb_encoder_decode   (max time: 0 ns, 0 = run to end)
+############################################################
+# vsim -c -quiet -voptargs=""+acc"" -L work -L gw5a work.tb_encoder_decode 
+# Start time: 23:32:25 on Oct 30,2026
+# ** Note: (vsim-3812) Design is being optimized...
+# //  ModelSim SE-64 2020.4 Oct 13 2020
+# //
+# //  Copyright 1991-2020 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  ModelSim SE-64 and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+# === tb_encoder_decode ===
+#   [ OK ] idle: speed_count : 0
+#   [ OK ] idle: window : 0
+#   [ OK ] idle: pos : 0
+#   [ OK ] fwd: pos delta : 40
+#   [ OK ] fwd: dir : 1
+#   [info] fwd speed_count=48 window=48 (��???????? 50)
+#   [ OK ] fwd: speed == window : 48
+#   [ OK ] fwd: speed positive : 1
+#   [ OK ] fwd: speed sanity : 1
+#   [ OK ] stop ???: window ???��?? : 0
+#   [ OK ] stop ???: speed ???��?? : 0
+#   [ OK ] rev: pos delta : -40
+#   [ OK ] rev: dir : 0
+#   [info] rev speed_count=-48 window=-48
+#   [ OK ] rev: speed negative : 1
+#   [ OK ] rev: speed == window : -48
+#   [ OK ] rev: speed sanity : 1
+#   [ OK ] glitch: pos unchanged : 0
+#   [ OK ] after glitch: pos : 4
+# === tb_encoder_decode: 17 checks, 0 errors ===
+# RESULT: PASS
+# ** Note: $stop    : tb_encoder_decode.v(294)
+#    Time: 1098846 ns  Iteration: 0  Instance: /tb_encoder_decode
+# Break in Module tb_encoder_decode at tb_encoder_decode.v line 294
+# Stopped at tb_encoder_decode.v line 294
+# End time: 23:32:27 on Oct 30,2026, Elapsed time: 0:00:02
+# Errors: 0, Warnings: 0
+
+---------- tb_uart ----------
+Reading pref.tcl
+
+# 2020.4
+
+# set TB tb_uart
+# tb_uart
+#  do vcd.do
+# gw5a
+# 0
+# tb_uart.vcd
+############################################################
+# VCD dump: tb_uart   (max time: 0 ns, 0 = run to end)
+############################################################
+# vsim -c -quiet -voptargs=""+acc"" -L work -L gw5a work.tb_uart 
+# Start time: 23:32:29 on Oct 30,2026
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Note: (vopt-143) Recognized 1 FSM in module "uart_rx(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "uart_tx(fast)".
+# //  ModelSim SE-64 2020.4 Oct 13 2020
+# //
+# //  Copyright 1991-2020 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  ModelSim SE-64 and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+# === tb_uart ===
+#   [ OK ] idle: tx high count : 500
+#   [ OK ] idle: done_cnt : 0
+#   [ OK ] idle: rx_busy : 0
+#   [ OK ] idle: tx_busy : 0
+#   [ OK ] loopback data : 85
+#   [ OK ] loopback data : 163
+#   [ OK ] loopback data : 0
+#   [ OK ] loopback data : 255
+#   [ OK ] loopback data : 1
+#   [ OK ] loopback data : 128
+#   [ OK ] loopback data : 126
+#   [ OK ] total done_cnt : 7
+#   [ OK ] frame_err cnt : 0
+#   [ OK ] parity_err cnt : 0
+#   [info] start bit width = 869 clk (expect ~868)
+#   [ OK ] start bit width : 1
+#   [ OK ] final done_cnt : 8
+#   [ OK ] final frame_err : 0
+# === tb_uart: 17 checks, 0 errors ===
+# RESULT: PASS
+# ** Note: $stop    : tb_uart.v(313)
+#    Time: 695195 ns  Iteration: 1  Instance: /tb_uart
+# Break in Module tb_uart at tb_uart.v line 313
+# Stopped at tb_uart.v line 313
+# End time: 23:32:31 on Oct 30,2026, Elapsed time: 0:00:02
+# Errors: 0, Warnings: 0
+
+---------- tb_top_integration ----------
+Reading pref.tcl
+
+# 2020.4
+
+# set TB tb_top_integration
+# tb_top_integration
+#  do vcd.do
+# gw5a
+# 0
+# tb_top_integration.vcd
+############################################################
+# VCD dump: tb_top_integration   (max time: 0 ns, 0 = run to end)
+############################################################
+# vsim -c -quiet -voptargs=""+acc"" -L work -L gw5a work.tb_top_integration 
+# Start time: 23:32:33 on Oct 30,2026
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Warning: tb_top_integration.v(231): (vopt-2685) [TFMPC] - Too few port connections for 'dut'.  Expected 24, found 21.
+# ** Warning: tb_top_integration.v(231): (vopt-2718) [TFMPC] - Missing connection for port 'uart_tx_dbg'.
+# ** Warning: tb_top_integration.v(231): (vopt-2718) [TFMPC] - Missing connection for port 'sr04_echo'.
+# ** Warning: tb_top_integration.v(231): (vopt-2718) [TFMPC] - Missing connection for port 'sr04_trig'.
+# ** Note: (vopt-143) Recognized 1 FSM in module "main_fsm(fast)".
+# ** Note: (vopt-143) Recognized 2 FSMs in module "i2c_master(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "uart_frame(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "pca9685_drv(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "vision_rx(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "rc_rx(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "telemetry_tx(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "uart_rx(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "uart_tx(fast)".
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=4.
+# //  ModelSim SE-64 2020.4 Oct 13 2020
+# //
+# //  Copyright 1991-2020 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  ModelSim SE-64 and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+# ** Warning: (vsim-3015) [PCDPC] - Port size (16) does not match connection size (8) for port 'rx_len'. The port definition is at: ../rtl/app/rc_rx.v(64).
+#    Time: 0 ps  Iteration: 0  Instance: /tb_top_integration/dut/u_rc_rx File: ../rtl/top.v Line: 1122
+# [config_rx] TYPE_CONFIG=0x04 CLK=50000000Hz
+# [config_rx] ��??��?��??? VREF=60 STOP=200mm SLOW=500mm LIFT_H=100 LIFT_TMO=500ms
+# [config_rx] ��????????��?? VREF=1..200 STOP=50..2000 SLOW=50..3000 LIFT_H=0..100 TMO=500..30000
+# [i2c_master] CLK=50000000Hz SCL=100000Hz -> QDIV=250 (???��?? SCL=100000Hz)
+# [motor_guard] CTRL=1ms RAMP_STEP=8 STALL_DUTY=40 STALL_SPD_MAX=2 STALL=500ms COOLDOWN=1000ms
+# [motor_guard] CTRL_CYC=50000 ???, STALL_TICKS=500, COOLDOWN_TICKS=1000
+# ** Note: $stop    : tb_top_integration.v(818)
+#    Time: 74198711 ns  Iteration: 0  Instance: /tb_top_integration
+# Break in Module tb_top_integration at tb_top_integration.v line 818
+# Stopped at tb_top_integration.v line 818
+# End time: 23:33:04 on Oct 30,2026, Elapsed time: 0:00:31
+# Errors: 0, Warnings: 5
+
+

@@ -1,0 +1,17 @@
+// beacon.cst -- pin constraints for the pin-connectivity beacon
+IO_LOC  "clk_50m"    Y18;
+IO_PORT "clk_50m"    IO_TYPE=LVCMOS33 PULL_MODE=NONE;
+
+// The pin under test: FPGA_UART_TX = C19 (same pin the real firmware drives)
+IO_LOC  "beacon_out" C19;
+IO_PORT "beacon_out" IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+
+// Visual confirmation: D0 blinks with the beacon, D1-D3 walk slowly
+IO_LOC  "led"        M22;
+IO_PORT "led"        IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+IO_LOC  "led2[0]"    N22;
+IO_LOC  "led2[1]"    L21;
+IO_LOC  "led2[2]"    K21;
+IO_PORT "led2[0]"    IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+IO_PORT "led2[1]"    IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+IO_PORT "led2[2]"    IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;

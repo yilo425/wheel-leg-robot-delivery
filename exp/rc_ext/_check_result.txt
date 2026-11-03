@@ -1,0 +1,79 @@
+[cmd] ERROR 故意炸
+[cmd] 302 failed send failed
+==============================================================================
+wifi_rc_ext.py 自检  (D:\dsh-ws\robot_project\exp\rc_ext\wifi_rc_ext.py)
+==============================================================================
+  [PASS] ast.parse 通过                                   60 个顶层语句
+  [PASS] CRLF 数量 == 0                                   CRLF=0
+  [PASS] 完全不含 \r                                        CR=0
+  [PASS] 不含 'memoryview'                                出现 0 次
+  [PASS] 含 '_send_all'                                  出现 9 次
+  [PASS] 源码里 <a href> 无裸 &（应为 &amp;）                    检查了 5 个字面 href
+  [PASS] 源码里 _btn() 的 href 无裸 &                         检查了 10 个 _btn href，坏的 0 个 []
+  [PASS] 含 'gc.collect'                                 
+  [PASS] 含 'TURN_MS' 且 == 360                           TURN_MS=360
+  [PASS] 文件大小 30000~45000 字节                            44806 字节
+  [PASS] DEBUG_HTTP = False                             
+  [PASS] 不含 'import asyncio'                            
+  [PASS] 不含 'import typing'                             
+  [PASS] 不含 'from typing'                               
+  [PASS] 不含 'import dataclasses'                        
+  [PASS] 不含 'import pathlib'                            
+  [PASS] 不含 'import threading'                          
+  [PASS] 未被改动: wifi_rc_baseline.py (36220 字节)           实际 36220, sha256=f5e281fc827adfea
+  [PASS] 未被改动: uart_proto.py (23963 字节)                 实际 23963, sha256=a755bda959f2c96f
+  [PASS] arm/wifi_rc.py 未混入本实验代码                        36657 字节, sha256=e5a07ab3666e7d9c（本任务未写入）
+  [PASS] 无 NUL 字节                                       行数 1082
+  [PASS] 模块可 import（无硬件依赖泄漏）                            VERSION=2026-11-01-r10-ext
+  [PASS] VERSION 与基线不同                                  2026-11-01-r10-ext
+  [PASS] _parse_query 无键名白名单                            {'m': 1, 'a': 1, 'foo': 9, 'bar': 'abc', 'ref': 1}
+  [PASS] 默认模式 = 自动                                      mode=0
+  [PASS] 自动模式 1 秒内 RC 帧 == 0                            RC=0, _tick 返回 0
+  [PASS] 自动模式拒绝动作指令                                     action=stop msg=自动模式：动作无效，请先点【手动】
+  [PASS] 切手动 -> CONFIG 0x20=1                           CONFIG 0x20 序列 [(32, 1), (32, 1)]
+  [PASS] 手动模式 1 秒 ≈ 20 帧（18~22）                         实际 20 帧
+  [PASS] 前进：steer=0 speed=40 且一直保持                      动作=fwd, 11 帧, 样例 [(0, 40, 21), (0, 40, 22), (0, 40, 23)]
+  [PASS] 后退：speed 字节 = 0x80|40 = 168                    11 帧, 样例 [(0, 168, 32), (0, 168, 33), (0, 168, 34)]
+  [PASS] 左转：steer=-100 speed=40                         首帧 [(-100, 40, 43)]
+  [PASS] 左转：360ms 后自动停（360~370）                         实际 360 ms
+  [PASS] 转停瞬间立刻补了停车帧（steer=0 speed=0）                   最后一帧 (0, 0, 51), 动作=stop
+  [PASS] 右转：steer=+100 speed=40                         (100, 40, 52)
+  [PASS] 停止：立刻发 steer=0 speed=0                         (0, 0, 61)
+  [PASS] 4.6 秒内 0x20 与 0x21 各重发 ≥ 2 次                   0x20 值 [1, 1], 0x21 值 [0, 0]
+  [PASS] 重发期间 RC 帧仍在发                                   92 帧
+  [PASS] 降低 -> CONFIG 0x21=1、升高 -> 0                    0x21 序列 [1], stance=0
+  [PASS] 切自动：停车帧在 0x20=0 之前发出                           RC@0 -> CFG0@1
+  [PASS] 切自动：动作被清零                                      action=stop mode=0
+  [PASS] 自动模式 3 秒内 RC 帧 == 0（不抢 FPGA 控制）                实际 0 帧
+  [PASS] CMD_TIMEOUT_MS 默认 0（点一下保持，不靠 600ms 超时）         CMD_TIMEOUT_MS=0
+  [PASS] /h 零 JS：20 种状态都无 script/onclick/form           
+  [PASS] 状态栏服务端渲染：手动/前进/高位                              长度 3545 字节
+  [PASS] 状态栏服务端渲染：自动/停止/低位/停发                           长度 3563 字节
+  [PASS] 高亮激活按钮（class 含 on）                             
+  [PASS] 自动模式下运动按钮置灰（dim）                               
+  [PASS] /h: Content-Length == body 字节数                 声明 3545, 实际 3545, 状态 HTTP/1.1 200 OK
+  [PASS] /h 返回 200 + no-store                           HTTP/1.1 200 OK
+  [PASS] /cmd 回 302 + Location: /h                      HTTP/1.1 302 Found
+  [PASS] /cmd 处理完会关连接                                   
+  [PASS] /cmd 垃圾参数仍回响应: /cmd?m=xxx&a=yyy&ht=zzz&sp=qqq  HTTP/1.1 302 Found
+  [PASS] /cmd 垃圾参数仍回响应: /cmd                            HTTP/1.1 302 Found
+  [PASS] /cmd 垃圾参数仍回响应: /cmd?                           HTTP/1.1 302 Found
+  [PASS] /cmd 垃圾参数仍回响应: /cmd?a=999&sp=-5&ht=abc         HTTP/1.1 302 Found
+  [PASS] /cmd 垃圾参数仍回响应: /cmd?m=&a=&ht=&sp=&ref=         HTTP/1.1 302 Found
+  [PASS] /cmd 内部异常仍回 302（连接不掐断）                         HTTP/1.1 302 Found
+  [PASS] 302 发送失败时回 200 保底页                             HTTP/1.1 200 OK
+  [PASS] 空请求不回页面                                        sent=0 字节
+  [PASS] _send_all 分片发送不丢字节                             发出 3560 / 3560
+  [PASS] _send_all 接受 str 入参                            
+  [PASS] /ver 返回版本与 TURN_MS                             VER=2026-11-01-r10-ext | PAGE_BYTES=3560 | FILE=D:\dsh-ws\robot_project\exp\rc_ext\wifi_rc
+  [PASS] / 302 跳 /h                                     HTTP/1.1 302 Found
+  [PASS] 未知路径回 404                                      HTTP/1.1 404 Not Found
+  [PASS] _mode_val 认 man/manual/auto/0/1                
+  [PASS] _act_val 认 stop/fwd/back/left/right/0..4       
+  [PASS] sp 被钳到 MIN_SPEED..SPEED_CAP                    sp=999 -> 100, sp=-5 -> 10
+  [PASS] dry_run 通过（帧结构 + 后退 bit7）                      ['[OK] 所有动作帧结构正确，后退 bit7 保留']
+  [PASS] 所有发出的帧帧头/帧尾/BCC 正确                             8 帧被检查, 坏的: []
+------------------------------------------------------------------------------
+  共 70 项，PASS 70，FAIL 0
+  文件 44806 字节，CRLF=0
+==============================================================================

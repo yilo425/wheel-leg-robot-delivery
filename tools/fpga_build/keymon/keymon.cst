@@ -1,0 +1,20 @@
+// keymon.cst -- pin constraints for the key monitor
+IO_LOC  "clk_50m"    Y18;
+IO_PORT "clk_50m"    IO_TYPE=LVCMOS33 PULL_MODE=NONE;
+
+IO_LOC  "key[0]"     F15;
+IO_PORT "key[0]"     IO_TYPE=LVCMOS33 PULL_MODE=UP;
+IO_LOC  "key[1]"     A20;
+IO_PORT "key[1]"     IO_TYPE=LVCMOS33 PULL_MODE=UP;
+
+IO_LOC  "rst_key_n"  B21;
+IO_PORT "rst_key_n"  IO_TYPE=LVCMOS33 PULL_MODE=UP;
+
+IO_LOC  "led[0]"     M22;
+IO_LOC  "led[1]"     N22;
+IO_LOC  "led[2]"     L21;
+IO_LOC  "led[3]"     K21;
+IO_PORT "led[0]"     IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+IO_PORT "led[1]"     IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+IO_PORT "led[2]"     IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+IO_PORT "led[3]"     IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;

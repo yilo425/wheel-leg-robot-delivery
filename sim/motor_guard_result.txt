@@ -1,0 +1,61 @@
+=== tb_motor_guard: 电机护栏（软启动 / 堵转 / 冷却）===
+  参数: CTRL=1ms RAMP_STEP=16 STALL_DUTY=40 STALL_SPD_MAX=2 STALL=3ms COOLDOWN=5ms
+  CLK=50000000Hz  1ms=50000 拍
+
+--- 0. 复位 ---
+  [ OK ] 0.1 复位后 duty_safe0=0 : 0
+  [ OK ] 0.2 复位后 enable_out=0 : 0
+  [ OK ] 0.3 复位后 stall=0 : 0
+  [ OK ] 0.4 复位后 ramp_active=0 : 0
+  [ OK ] 0.5 enable=1 后 enable_out=1（组合跟随） : 1
+  [ OK ] 0.6 目标为 0 时输出 0 : 0
+  [ OK ] 0.7 目标为 0 时 ramp_active=0（已在位） : 0
+
+--- 1. 急停 0 拍 ---
+  [ OK ] 1.1 急停前 duty_safe0 非 0 : 1
+  [ OK ] 1.2 ★enable=0 当拍 duty_safe0=0（0 拍） : 0
+  [ OK ] 1.3 ★enable=0 当拍 enable_out=0（0 拍） : 0
+  [ OK ] 1.4 其余三路也当拍为 0 : 0
+  [ OK ] 1.5 断电期间 duty 保持 0 : 0
+  [ OK ] 1.6 ★重新使能从 0 开始（软启动，不回跳旧值） : 0
+
+--- 2. 软启动 ---
+  [ OK ] 2.1 ★第 1 拍只涨 RAMP_STEP : 16
+  [ OK ] 2.2 ★第 2 拍仍只涨 RAMP_STEP : 16
+  [ OK ] 2.3 ★没有一步跳到目标 100 : 1
+  [ OK ] 2.4 爬升中 ramp_active=1 : 1
+  [ OK ] 2.5 爬到目标 100 : 100
+  [ OK ] 2.6 到位后 ramp_active=0 : 0
+  [ OK ] 2.7 四路同步爬到目标 : 300
+  [ OK ] 2.8 ★目标降到 10 -> 1 拍内跟到 10（下降不限速） : 10
+
+--- 3. 堵转判定 ---
+  [ OK ] 3.0 四路都到 100 : 200
+  [ OK ] 3.0b 到位后 ramp_active=0 : 0
+  [ OK ] 3.1 ★不到 STALL_MS 不判堵转 : 0
+  [ OK ] 3.2 ★持续 STALL_MS 后判出堵转 : 1
+  [ OK ] 3.3 ★堵转轮 duty 立刻为 0 : 0
+  [ OK ] 3.4 ★其它轮不误报（lane1 转着） : 0
+  [ OK ] 3.5 其它轮 duty 保持 100 : 100
+  [ OK ] 3.6 只有 lane0 的 stall 置起 : 1
+  [ OK ] 3.7 stall_any=1 : 1
+
+--- 4. 冷却恢复 ---
+  [ OK ] 4.1 冷却期间 duty 恒 0 : 0
+  [ OK ] 4.2 冷却期间 stall 保持 1 : 1
+  [ OK ] 4.3 ★冷却结束 stall 自动清 0 : 0
+  [ OK ] 4.4 冷却后重新爬升（duty>0） : 1
+  [ OK ] 4.5 ★卡阻仍在 -> 再次判堵转（断续试探） : 1
+  [ OK ] 4.6 这期间 lane1 一直没被误判 : 0
+
+--- 5. 正常转动不误报 ---
+  [ OK ] 5.1 ★duty 大且转着 -> 不判堵转（lane1） : 0
+  [ OK ] 5.2 ★负速度也算转 -> 不判堵转（lane3） : 0
+  [ OK ] 5.3 lane1 duty 仍 100 : 100
+
+--- 6. duty 小不判堵转 ---
+  [ OK ] 6.1 ★duty 小(10<40)+不动 -> 不判堵转 : 0
+  [ OK ] 6.2 duty 保持 10 : 10
+
+=== tb_motor_guard: 41 checks, 0 errors ===
+RESULT: PASS

@@ -1,0 +1,33 @@
+// motortest.cst -- pin constraints (same pins as the product firmware)
+IO_LOC  "clk_50m"    Y18;
+IO_PORT "clk_50m"    IO_TYPE=LVCMOS33 PULL_MODE=NONE;
+
+// Motor A drive signals (identical to the product pin table)
+IO_LOC  "pwm_a"      A13;
+IO_PORT "pwm_a"      IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+IO_LOC  "dir_a"      A18;
+IO_PORT "dir_a"      IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+
+// Channel B (so the motor can be moved to Motor_B to test channel A)
+IO_LOC  "pwm_b"      A14;
+IO_PORT "pwm_b"      IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+IO_LOC  "dir_b"      A19;
+IO_PORT "dir_b"      IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+
+// NOTE: v4 no longer drives STBY (the board pulls it up internally to its own
+// 3V3, and driving it from the FPGA back-feeds that rail through the ESD
+// diodes -- that is what made the board hot earlier).
+
+// Probe input: read the driver board's own 3V3 rail.
+// PULL_MODE=DOWN so an unwired probe reads a solid 0 (no floating surprise).
+IO_LOC  "probe"      E18;
+IO_PORT "probe"      IO_TYPE=LVCMOS33 PULL_MODE=DOWN;
+
+IO_LOC  "led[0]"     M22;
+IO_LOC  "led[1]"     N22;
+IO_LOC  "led[2]"     L21;
+IO_LOC  "led[3]"     K21;
+IO_PORT "led[0]"     IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+IO_PORT "led[1]"     IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+IO_PORT "led[2]"     IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+IO_PORT "led[3]"     IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;

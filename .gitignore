@@ -1,0 +1,6 @@
+build/
+bitstream/
+__pycache__/
+*.pyc
+sim/*.vcd
+sim/work/

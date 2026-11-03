@@ -1,0 +1,6 @@
+# PC 侧（非 K230 板端）依赖
+# 协议测试、假视觉联调、图片识别需要：
+pyserial>=3.5
+# 只有 detect_from_image.py 需要，其他脚本不需要：
+opencv-python>=4.8
+numpy>=1.24

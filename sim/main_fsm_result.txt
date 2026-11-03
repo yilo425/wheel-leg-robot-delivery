@@ -1,0 +1,149 @@
+=== tb_main_fsm ===
+  [info] CLK=50000000 MS_TICKS=50000
+  [info] 超时阈值: AVOID=100000 LIFT=250000 CROSS=50000 拍
+  [info] 距离阈值: STOP=200 SLOW=500 CLEAR=800 mm
+
+--- 场景 1: 上电 + 启动 ---
+  [ OK ] 1.1 上电后 state=IDLE : 0
+  [ OK ] 1.2 上电后 motor_enable=0 : 0
+  [ OK ] 1.3 上电后 error_flag=0 : 0
+  [ OK ] 1.4 start 后 state=AUTO : 2
+  [ OK ] 1.5 AUTO: motor_enable=1 : 1
+  [ OK ] 1.6 AUTO 距离远: speed=FULL : 2
+  [ OK ] 1.7 AUTO: avoid_active=0 : 0
+
+--- 场景 2: 减速 -> 停车避障 ---
+  [ OK ] 2.1 距离 600mm: speed=FULL : 2
+  [ OK ] 2.2 距离 400mm: speed=SLOW : 1
+  [ OK ] 2.3 距离 400mm: 仍为 AUTO : 2
+  [ OK ] 2.4 距离 150mm: state=AVOID : 3
+  [ OK ] 2.5 深入障碍: motor_enable=0 : 0
+  [ OK ] 2.6 深入障碍: speed=STOP : 0
+  [ OK ] 2.7 AVOID: avoid_active=1 : 1
+
+--- 场景 3: 路径通畅后恢复 ---
+  [ OK ] 3.1 AVOID 中距离变远: 允许走 : 1
+  [ OK ] 3.2 距离 900mm: 恢复 AUTO : 2
+  [ OK ] 3.3 恢复后: speed=FULL : 2
+  [ OK ] 3.4 恢复后: avoid_active=0 : 0
+
+--- 场景 4: 低矮障碍 -> 四腿一起抬(模式0) ---
+  [ OK ] 4.1 低矮障碍: state=LIFT : 4
+  [ OK ] 4.2 抬腿中: lift_phase=LP_UP : 1
+  [ OK ] 4.3 抬腿中: lift_cmd=2'b11(前后一起抬) : 3
+  [ OK ] 4.4 抬腿中: motor_enable=0 : 0
+  [ OK ] 4.5 LIFT: lift_active=1 : 1
+  [ OK ] 4.6 只有前腿到位: 仍停在 LP_UP : 1
+  [ OK ] 4.7 两组都到位: lift_phase=LP_CROSS : 2
+  [ OK ] 4.8 通过中: lift_cmd=2'b11(保持抬起) : 3
+  [ OK ] 4.9 通过中: motor_enable=1 : 1
+  [ OK ] 4.10 通过中: speed=SLOW : 1
+  [ OK ] 4.11 ★前向通畅但时间不够: 仍不收腿 : 2
+  [ OK ] 4.12 时间够了: lift_phase=LP_DOWN : 7
+  [ OK ] 4.13 收腿中: lift_cmd=2'b00 : 0
+  [ OK ] 4.14 收腿中: motor_enable=0 : 0
+  [ OK ] 4.15 收腿完成: state=AUTO : 2
+  [ OK ] 4.16 回到 AUTO: lift_cmd=2'b00 : 0
+
+--- 场景 4b: 台阶 -> 两腿分段(模式1) ---
+  [ OK ] 4b.1 台阶: state=LIFT : 4
+  [ OK ] 4b.2 先抬前腿: lift_phase=LP_F_UP : 3
+  [ OK ] 4b.3 只抬前腿: lift_cmd=2'b01 : 1
+  [ OK ] 4b.4 抬腿中: motor_enable=0 : 0
+  [ OK ] 4b.5 前腿到位: lift_phase=LP_F_CROSS : 4
+  [ OK ] 4b.6 前轮上位: lift_cmd=2'b01(保持前腿) : 1
+  [ OK ] 4b.7 前轮上位: motor_enable=1 : 1
+  [ OK ] 4b.8 前轮上位完成: lift_phase=LP_R_UP : 5
+  [ OK ] 4b.9 ★抬后腿时前腿保持: lift_cmd=2'b11 : 3
+  [ OK ] 4b.10 抬后腿: motor_enable=0 : 0
+  [ OK ] 4b.11 后腿到位: lift_phase=LP_R_CROSS : 6
+  [ OK ] 4b.12 后轮上位: motor_enable=1 : 1
+  [ OK ] 4b.13 后轮上位完成: lift_phase=LP_DOWN : 7
+  [ OK ] 4b.14 都放下: lift_cmd=2'b00 : 0
+  [ OK ] 4b.15 跨台阶完成: state=AUTO : 2
+
+--- 场景 5: 急停 ---
+  [ OK ] 5.1 急停前: motor_enable=1 : 1
+  [ OK ] 5.2 ★estop 当拍: motor_enable=0 : 0
+  [ OK ] 5.3 estop 当拍: state=ESTOP : 6
+  [ OK ] 5.4 人为急停: error_flag=0 : 0
+  [ OK ] 5.5 急停解除未按 start: 仍 ESTOP : 6
+  [ OK ] 5.6 急停解除未按 start: motor=0 : 0
+  [ OK ] 5.7 ★急停解除后: error_flag 仍为 0 : 0
+  [ OK ] 5.8 按 start: state=IDLE : 0
+  [ OK ] 5.9 再按 start: state=AUTO : 2
+
+--- 场景 6: 避障超时 -> 安全停车 ---
+  [ OK ] 6.1 进入 AVOID : 3
+  [info] 避障持续 100001 拍后离开 AVOID (阈值 100000)
+  [ OK ] 6.2 避障超时: state=ESTOP : 6
+  [ OK ] 6.3 避障超时: error_flag=1 : 1
+  [ OK ] 6.4 避障超时: motor_enable=0 : 0
+
+--- 场景 7: 抬腿超时 -> 安全停车 ---
+  [ OK ] 7.1 进入 LIFT/UP : 4
+  [ OK ] 7.2 lift_phase=UP : 1
+  [info] 抬腿等待 249996 拍后离开 LP_UP (阈值 250000)
+  [ OK ] 7.3 抬腿超时: state=AVOID（降级绕行） : 3
+  [ OK ] 7.4 降级后腿收回（lift_cmd=00） : 0
+  [ OK ] 7.5 降级不算故障（error_flag=0） : 0
+
+--- 场景 7b: 模式1 前腿超时 -> 安全停车 ---
+  [ OK ] 7b.1 进入 LIFT/LP_F_UP : 4
+  [ OK ] 7b.2 lift_phase=LP_F_UP : 3
+  [ OK ] 7b.3 前腿超时: state=AVOID（降级绕行） : 3
+  [ OK ] 7b.4 降级后腿收回（lift_cmd=00） : 0
+
+--- 场景 7c: 连续失败 3 次 -> ESTOP ---
+  [ OK ] 7c.1 第1次进 LIFT : 4
+  [ OK ] 7c.2 第1次超时 -> AVOID : 3
+  [ OK ] 7c.3 锁定期内发 0x04 进不了 LIFT : 2
+  [ OK ] 7c.4 锁定过后回 AUTO : 2
+  [ OK ] 7c.5 第2次进 LIFT : 4
+  [ OK ] 7c.6 第2次超时 -> AVOID : 3
+  [ OK ] 7c.7 第3次进 LIFT : 4
+  [ OK ] 7c.8 第3次失败 -> ESTOP : 6
+  [ OK ] 7c.9 第3次失败 error_flag=1 : 1
+
+--- 场景 8: 舵机故障 -> 立即安全停车 ---
+  [ OK ] 8.1 lift_fault: state=ESTOP : 6
+  [ OK ] 8.2 lift_fault: error_flag=1 : 1
+  [ OK ] 8b.1 单路故障也要停: state=ESTOP : 6
+  [ OK ] 8b.2 单路故障: error_flag=1 : 1
+
+--- 场景 9: 传感器失效 fail-safe ---
+  [ OK ] 9.1 正常: speed=FULL : 2
+  [ OK ] 9.2 测距失效: 仍为 AUTO (不卡死) : 2
+  [ OK ] 9.3 测距失效: speed=SLOW (fail-safe) : 1
+  [ OK ] 9.4 测距失效: motor_enable=1 : 1
+  [ OK ] 9.5 恢复有效读数: speed=FULL : 2
+
+--- 场景 10: 到达终点 + 手动模式 ---
+  [ OK ] 10.1 goal_reached: state=GOAL : 5
+  [ OK ] 10.2 GOAL: motor_enable=0 : 0
+  [ OK ] 10.3 GOAL 后按 start: AUTO : 2
+  [ OK ] 10.4 manual_sel: state=MANUAL : 1
+  [ OK ] 10.5 MANUAL: motor_enable=1 : 1
+  [ OK ] 10.6 MANUAL: speed=SLOW : 1
+  [ OK ] 10.7 松开 manual_sel: IDLE : 0
+
+--- 11. 视觉类别表（0x02 障碍物）---
+  [ OK ] 11a.1 启动后 AUTO : 2
+  [ OK ] 11a.2 收到 0x02 -> AVOID : 3
+  [ OK ] 11a.3 视觉触发: motor_enable=1 : 1
+  [ OK ] 11a.4 视觉触发: speed=SLOW : 1
+  [ OK ] 11b.1 保持窗口内: 仍在 AVOID : 3
+  [ OK ] 11c.1 保持窗口过后 -> AUTO : 2
+  [ OK ] 11d.1 未知类别 0x07 -> 保持 AUTO : 2
+
+--- 场景 12: 抬腿超时运行时可变（0x11）---
+  [ OK ] 12.1 进入 LIFT/UP : 4
+  [ OK ] 12.2 lift_phase=UP : 1
+  [ OK ] 12.3 10ms 时仍在 LIFT（没提前超时） : 4
+  [ OK ] 12.4 10ms 时 lift_phase 仍是 UP : 1
+  [ OK ] 12.5 25ms 后已超时: state=AVOID : 3
+  [ OK ] 12.6 超时后腿收回（lift_cmd=00） : 0
+  [ OK ] 12.7 超时后不算故障（error_flag=0） : 0
+
+=== tb_main_fsm: 110 checks, 0 errors ===
+RESULT: PASS

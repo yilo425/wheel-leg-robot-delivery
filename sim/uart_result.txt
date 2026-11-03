@@ -1,0 +1,20 @@
+  [ OK ] idle: tx high count : 500
+  [ OK ] idle: done_cnt : 0
+  [ OK ] idle: rx_busy : 0
+  [ OK ] idle: tx_busy : 0
+  [ OK ] loopback data : 85
+  [ OK ] loopback data : 163
+  [ OK ] loopback data : 0
+  [ OK ] loopback data : 255
+  [ OK ] loopback data : 1
+  [ OK ] loopback data : 128
+  [ OK ] loopback data : 126
+  [ OK ] total done_cnt : 7
+  [ OK ] frame_err cnt : 0
+  [ OK ] parity_err cnt : 0
+  [info] start bit width = 869 clk (BIT_CLKS=868)
+  [ OK ] start bit width : 1
+  [ OK ] final done_cnt : 8
+  [ OK ] final frame_err : 0
+=== tb_uart: 17 checks, 0 errors ===
+RESULT: PASS

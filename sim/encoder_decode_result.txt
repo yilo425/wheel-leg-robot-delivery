@@ -1,0 +1,21 @@
+  [ OK ] idle: speed_count : 0
+  [ OK ] idle: window : 0
+  [ OK ] idle: pos : 0
+  [ OK ] fwd: pos delta : 40
+  [ OK ] fwd: dir : 1
+  [info] fwd speed_count=48 window=48 (预期约 50)
+  [ OK ] fwd: speed == window : 48
+  [ OK ] fwd: speed positive : 1
+  [ OK ] fwd: speed sanity : 1
+  [ OK ] stop 后: window 清零 : 0
+  [ OK ] stop 后: speed 清零 : 0
+  [ OK ] rev: pos delta : -40
+  [ OK ] rev: dir : 0
+  [info] rev speed_count=-48 window=-48
+  [ OK ] rev: speed negative : 1
+  [ OK ] rev: speed == window : -48
+  [ OK ] rev: speed sanity : 1
+  [ OK ] glitch: pos unchanged : 0
+  [ OK ] after glitch: pos : 4
+=== tb_encoder_decode: 17 checks, 0 errors ===
+RESULT: PASS

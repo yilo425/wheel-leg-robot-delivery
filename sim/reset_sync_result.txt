@@ -1,0 +1,20 @@
+=== tb_reset_sync ===
+  [info] CLK_PERIOD=10 SYNC_STAGES=3 POR_CYCLES=64
+  [ OK ] c assert: rst_n_por 立即为低 : 0
+  [ OK ]  assert: rst_n_sync 立即为低 : 0
+  [ OK ] B1. 按复位: rst_n_sync 为低 : 0
+    释放后第 1 拍: rst_n_sync=0
+    释放后第 2 拍: rst_n_sync=0
+  [ OK ] . 第 SYNC_STAGES-1 拍仍为低 : 0
+    释放后第 3 拍: rst_n_sync=1
+  [ OK ] B3. 第 SYNC_STAGES 拍已为高 : 1
+    释放后第 4 拍: rst_n_sync=1
+    释放后第 5 拍: rst_n_sync=1
+  [ OK ] C1. POR 走完: rst_n_por 为高 : 1
+  [ OK ] . 再按复位: rst_n_por 为低 : 0
+  [ OK ]  POR 中途: rst_n_por 仍为低 : 0
+  [ OK ] C4. POR 结束: rst_n_por 为高 : 1
+  [ OK ] �位可重复: rst_n_sync 为低 : 0
+  [ OK ]  再次释放: rst_n_sync 为高 : 1
+=== tb_reset_sync: 11 checks, 0 errors ===
+RESULT: PASS

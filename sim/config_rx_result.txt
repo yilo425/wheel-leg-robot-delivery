@@ -1,0 +1,152 @@
+=== tb_config_rx ===
+  [info] CLK=50000000Hz 周期=20ns
+  [info] 默认值 VREF=69 STOP=200 SLOW=500 LIFT_H=100 LIFT_TMO=3000
+  [info] 饱和测试: 开启
+
+--- 场景 1: 复位值 = DEF_* 默认值 ---
+  [ OK ] 1.1 复位后 vref=69 : 69
+  [ OK ] 1.2 复位后 dist_stop_mm=200 : 200
+  [ OK ] 1.3 复位后 dist_slow_mm=500 : 500
+  [ OK ] 1.4 复位后 lift_height=100 : 100
+  [ OK ] 1.5 复位后 lift_timeout_ms=3000 : 3000
+  [ OK ] 1.6 复位后 manual_sel=0 : 0
+  [ OK ] 1.7 复位后 cfg_valid=0 : 0
+  [ OK ] 1.8 复位后 cfg_bad=0 : 0
+  [ OK ] 1.9 复位后 rx_pl_addr=0 : 0
+  [ OK ] 1.10 复位后 cfg_cnt=0 : 0
+  [ OK ] 1.11 复位后 cfg_bad_cnt=0 : 0
+  [ OK ] 1.12 复位后 cfg_ign_cnt=0 : 0
+
+--- 场景 2: 正常配置（每个 ID + 大端判别）---
+  [ OK ] 2.1 0x01 最大速度写入 120 : 120
+  [ OK ] 2.2 0x01 产生 1 次 cfg_valid : 1
+  [ OK ] 2.3 0x01 不产生 cfg_bad : 0
+  [ OK ] 2.4 帧结束后 cfg_valid 已落回 0 : 0
+  [ OK ] 2.5 0x01 载荷地址序列 0,1,2,3 : 15
+  [ OK ] 2.6 0x02 停车距离写入 300 : 300
+  [ OK ] 2.7 0x04 减速距离写入 1000 : 1000
+  [ OK ] 2.8 0x10 抬升高度写入 60 : 60
+  [ OK ] 2.9 0x10 载荷地址序列 0,1,2 : 7
+  [ OK ] 2.10 0x11 超时写入 3000 : 3000
+  [ OK ] 2.11 ★0x11 超时 4660(字节反了会变 13330) : 4660
+  [ OK ] 2.12 0x20 手动模式=1 : 1
+  [ OK ] 2.13 0x20 手动模式=0 : 0
+  [ OK ] 2.14 场景2 共 8 次 cfg_valid : 8
+  [ OK ] 2.15 场景2 无 cfg_bad : 0
+  [ OK ] 2.16 场景2 后 cfg_cnt=8 : 8
+  [ OK ] 2.17 场景2 不动 dist_stop(300) : 300
+  [ OK ] 2.18 场景2 不动 dist_slow(1000) : 1000
+
+--- 场景 3: 长度校验非法 -> cfg_bad 且值不变 ---
+  [ OK ] 3.1 rx_len 太长 -> vref 不变(120) : 120
+  [ OK ] 3.2 rx_len 太长 -> cfg_bad +1 : 1
+  [ OK ] 3.3 rx_len 太短 -> vref 不变 : 120
+  [ OK ] 3.4 载荷长度字节不符 -> vref 不变 : 120
+  [ OK ] 3.5 一帧两参数(rx_len=6) -> 超时不变(4660) : 4660
+  [ OK ] 3.5b 一帧两参数 -> 停车距离不变(300) : 300
+  [ OK ] 3.6 1字节参数声明长度2 -> lift_height 不变(60) : 60
+  [ OK ] 3.7 1字节参数帧头超长 -> lift_height 不变 : 60
+  [ OK ] 3.8 场景3 全程 0 次 cfg_valid : 0
+  [ OK ] 3.9 场景3 共 6 次 cfg_bad : 6
+  [ OK ] 3.10 场景3 后 cfg_bad_cnt=6 : 6
+  [ OK ] 3.11 场景3 后 cfg_cnt 仍是 8 : 8
+  [ OK ] 3.12 非法帧只读了地址 0,1 : 3
+
+--- 场景 4: 未知 ID / 0x03 -> 忽略 ---
+  [ OK ] 4.1 0x03 测速窗口 -> cfg_ign_cnt+1 : 1
+  [ OK ] 4.2 0x03 不产生 cfg_valid : 0
+  [ OK ] 4.3 0x03 不产生 cfg_bad : 0
+  [ OK ] 4.4 未知ID 0x55 -> cfg_ign_cnt=2 : 2
+  [ OK ] 4.5 未知ID 0x00 -> cfg_ign_cnt=3 : 3
+  [ OK ] 4.6 0x03 长度非法也只算忽略 -> ign=4 : 4
+  [ OK ] 4.7 忽略帧不算 bad : 0
+  [ OK ] 4.8 忽略帧只读地址 0,1 : 3
+  [ OK ] 4.9 忽略帧后 vref 仍 120 : 120
+  [ OK ] 4.10 忽略帧后 stop 仍 300 : 300
+  [ OK ] 4.11 忽略帧后 slow 仍 1000 : 1000
+  [ OK ] 4.12 忽略帧后 lift_h 仍 60 : 60
+  [ OK ] 4.13 忽略帧后 超时仍 4660 : 4660
+  [ OK ] 4.14 忽略帧后 manual 仍 0 : 0
+
+--- 场景 5: 0x20 手动模式 ---
+  [ OK ] 5.1 0x20 = 1 -> manual_sel=1 : 1
+  [ OK ] 5.2 0x20 = 0 -> manual_sel=0 : 0
+  [ OK ] 5.3 0x20 = 2 -> cfg_bad : 1
+  [ OK ] 5.4 0x20 = 2 -> manual_sel 不变(0) : 0
+  [ OK ] 5.5 0x20 = 255 -> cfg_bad : 1
+  [ OK ] 5.6 0x20 = 255 -> manual_sel 不变(0) : 0
+  [ OK ] 5.7 0x20 = 1 -> manual_sel=1 : 1
+  [ OK ] 5.8 0x20 帧长非法 -> cfg_bad : 1
+  [ OK ] 5.9 0x20 帧长非法 -> manual_sel 仍 1 : 1
+  [ OK ] 5.10 0x20 = 0 -> manual_sel=0 : 0
+  [ OK ] 5.11 场景5 后 cfg_bad_cnt=9 : 9
+  [ OK ] 5.12 场景5 后 cfg_cnt=12 : 12
+
+--- 场景 6: 钳位 ---
+  [ OK ] 6.1 vref 0 钳到 1 : 1
+  [ OK ] 6.2 vref 500 钳到 200 : 200
+  [ OK ] 6.3 vref 201 钳到 200 : 200
+  [ OK ] 6.4 vref 200 边界不变 : 200
+  [ OK ] 6.5 vref 1 边界不变 : 1
+  [ OK ] 6.6 vref 100 正常 : 100
+  [ OK ] 6.7 stop 0 钳到 50 : 50
+  [ OK ] 6.8 stop 49 钳到 50 : 50
+  [ OK ] 6.9 stop 5000 钳到 2000 : 2000
+  [ OK ] 6.10 stop 2000 边界不变 : 2000
+  [ OK ] 6.11 ★stop=2000 时 slow 被顶到 2050 : 2050
+  [ OK ] 6.12 stop 800 恢复 : 800
+  [ OK ] 6.13 slow 5000 钳到 3000 : 3000
+  [ OK ] 6.14 slow 3000 边界不变 : 3000
+  [ OK ] 6.15 slow 0 钳到 50 后被顶到 stop+50=850 : 850
+  [ OK ] 6.16 slow 850 (>stop=800) 不动 : 850
+  [ OK ] 6.17 slow 800 (==stop) -> 850 : 850
+  [ OK ] 6.18 slow 700 (<stop) -> 850 : 850
+  [ OK ] 6.19 lift_h 255 钳到 100 : 100
+  [ OK ] 6.20 lift_h 101 钳到 100 : 100
+  [ OK ] 6.21 lift_h 0 合法不变 : 0
+  [ OK ] 6.22 lift_h 50 正常 : 50
+  [ OK ] 6.23 超时 0 钳到 500 : 500
+  [ OK ] 6.24 超时 499 钳到 500 : 500
+  [ OK ] 6.25 超时 40000 钳到 30000 : 30000
+  [ OK ] 6.26 超时 30000 边界不变 : 30000
+  [ OK ] 6.27 超时 500 边界不变 : 500
+  [ OK ] 6.28 超时 1000 正常 : 1000
+  [ OK ] 6.29 钳位帧全部算成功(27 次 cfg_valid) : 27
+  [ OK ] 6.30 钳位不算 bad : 0
+
+--- 场景 7: 非 CONFIG 帧完全不响应 ---
+  [ OK ] 7.1 0x02 帧期间 rx_pl_addr 恒为 0 : 0
+  [ OK ] 7.2 0x02 帧不产生 cfg_valid : 0
+  [ OK ] 7.3 0x02 帧不产生 cfg_bad : 0
+  [ OK ] 7.4 0x02 帧不动 cfg_cnt : 39
+  [ OK ] 7.5 0x02 帧不动 cfg_bad_cnt : 9
+  [ OK ] 7.6 0x02 帧不动 cfg_ign_cnt : 4
+  [ OK ] 7.7 0x03 ACK 帧不响应: cfg_cnt : 39
+  [ OK ] 7.8 0x03 ACK 帧不响应: ign_cnt : 4
+  [ OK ] 7.9 0x01 图像帧不响应: cfg_cnt : 39
+  [ OK ] 7.10 非 CONFIG 帧后 vref 仍 100 : 100
+  [ OK ] 7.11 非 CONFIG 帧后 stop 仍 800 : 800
+  [ OK ] 7.12 非 CONFIG 帧后 slow 仍 850 : 850
+  [ OK ] 7.13 非 CONFIG 帧后 lift_h 仍 50 : 50
+  [ OK ] 7.14 非 CONFIG 帧后 超时仍 1000 : 1000
+  [ OK ] 7.15 非 CONFIG 帧后 manual 仍 0 : 0
+
+--- 场景 8: 计数饱和 ---
+  [info] 饱和测试: 每轮 65700 帧, 预计 919800 拍 = 18396 us
+  [ OK ] 8.1 cfg_bad_cnt 饱和在 FFFF : 65535
+  [ OK ] 8.2 饱和后 cfg_cnt 没被带偏(39) : 39
+  [ OK ] 8.3 饱和后 cfg_ign_cnt 没被带偏(4) : 4
+  [ OK ] 8.4 cfg_cnt 饱和在 FFFF : 65535
+  [ OK ] 8.5 饱和后 cfg_bad_cnt 仍是 FFFF : 65535
+  [ OK ] 8.6 满帧后 lift_height 仍 60 : 60
+  [ OK ] 8.7 cfg_ign_cnt 饱和在 FFFF : 65535
+  [ OK ] 8.8 饱和后 cfg_cnt 仍是 FFFF : 65535
+  [ OK ] 8.9 饱和后 vref 仍 100 : 100
+
+--- 场景 9: 全程不变量 ---
+  [ OK ] 9.1 全程 cfg_valid/cfg_bad 从未同拍 : 0
+  [ OK ] 9.2 全程 cfg_valid 从未连续两拍为高 : 0
+  [ OK ] 9.3 全程非 CONFIG 帧 rx_pl_addr 恒为 0 : 0
+
+=== tb_config_rx: 126 checks, 0 errors ===
+RESULT: PASS

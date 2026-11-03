@@ -1,0 +1,9 @@
+﻿=========== 测试汇总  2026-10-30 19:03:23 ===========
+  PASS   tb_reset_sync   [VCD 已生成]
+  PASS   tb_pwm_motor   [VCD 已生成]
+  PASS   tb_encoder_decode   [VCD 已生成]
+  PASS   tb_uart   [VCD 已生成]
+  ERROR  tb_top_integration  <== 没有 RESULT 行，仿真没跑起来   [VCD 已生成]
+
+  PASS=4  FAIL=0  ERROR=1
+

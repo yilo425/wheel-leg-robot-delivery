@@ -1,0 +1,52 @@
+=== tb_rc_rx start ===
+
+-- 场景 1：复位值 --
+  [ OK ] reset steer : 0
+  [ OK ] reset speed : 0
+  [ OK ] reset active : 0
+  [ OK ] reset frames : 0
+
+-- 场景 2：正常帧 steer=+50 speed=100 --
+  [ OK ] steer=+50 -> 800 : 800
+  [ OK ] speed=100 -> 2 : 2
+  [ OK ] active=1 : 1
+  [ OK ] frames=1 : 1
+
+-- 场景 3：steer=-50 --
+  [ OK ] steer=-50 -> -800 : -800
+  [ OK ] speed=30 -> 1 : 1
+  [ OK ] frames=2 : 2
+
+-- 场景 4：steer 饱和 --
+  [ OK ] steer=+120 -> +1600 : 1600
+  [ OK ] steer=-120 -> -1600 : -1600
+
+-- 场景 5：speed 分档 --
+  [ OK ] speed=0 -> 0 : 0
+  [ OK ] speed=50 -> 1 : 1
+  [ OK ] speed=51 -> 2 : 2
+
+-- 场景 6：长度不对 --
+  [ OK ] bad pulse seen : 1
+  [ OK ] steer unchanged : 0
+  [ OK ] speed unchanged : 2
+  [ OK ] frames unchanged : 7
+
+-- 场景 7：非 RC 帧 --
+  [ OK ] non-RC frames unchanged : 7
+  [ OK ] non-RC addr back to 0 : 0
+
+-- 场景 8：序号不连续 --
+  [ OK ] seq_err increments twice : 2
+
+-- 场景 9：看门狗超时 --
+  [ OK ] active before timeout : 1
+  [ OK ] active after timeout : 0
+  [ OK ] frames hold on timeout : 11
+
+-- 场景 10：恢复 --
+  [ OK ] active recovered : 1
+  [ OK ] frames=12 : 12
+
+=== tb_rc_rx: 28 checks, 0 errors ===
+RESULT: PASS

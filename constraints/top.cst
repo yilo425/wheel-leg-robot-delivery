@@ -1,0 +1,214 @@
+//=============================================================================
+// top.cst -- 高云 (Gowin) 物理约束文件
+//-----------------------------------------------------------------------------
+// !!! 本文件由 tools/gen_cst.py 从 constraints/pin_table.csv 自动生成 !!!
+//
+//   不要直接编辑本文件 —— 下次生成会被覆盖。
+//   要改引脚请改 pin_table.csv，然后重跑：
+//       python tools/gen_cst.py
+//
+//   生成时间来源：pin_table.csv
+//-----------------------------------------------------------------------------
+// 电气属性说明
+//   IO_TYPE  : LVCMOS33 = 3.3V
+//   PULL_MODE: 编码器/按键 UP；m_en DOWN；其余 NONE
+//   DRIVE    : 电机 PWM/方向 8mA；其余默认
+//=============================================================================
+
+// clk_50m  板载 50MHz 晶振 (FPGA_GCLK1，MRCC 时钟专用脚)
+IO_LOC  "clk_50m"             Y18;
+IO_PORT "clk_50m"             IO_TYPE=LVCMOS33 PULL_MODE=NONE;
+
+// rst_key_n  S4 按键（板上标注为复位键，低有效）
+IO_LOC  "rst_key_n"           B21;
+IO_PORT "rst_key_n"           IO_TYPE=LVCMOS33 PULL_MODE=UP;
+
+// key[0]  S0 启动键
+IO_LOC  "key[0]"              F15;
+IO_PORT "key[0]"              IO_TYPE=LVCMOS33 PULL_MODE=UP;
+
+// key[1]  S1 急停键
+IO_LOC  "key[1]"              A20;
+IO_PORT "key[1]"              IO_TYPE=LVCMOS33 PULL_MODE=UP;
+
+// led[0]  LED0
+IO_LOC  "led[0]"              M22;
+IO_PORT "led[0]"              IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+
+// led[1]  LED1
+IO_LOC  "led[1]"              N22;
+IO_PORT "led[1]"              IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+
+// led[2]  LED2
+IO_LOC  "led[2]"              L21;
+IO_PORT "led[2]"              IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+
+// led[3]  LED3
+IO_LOC  "led[3]"              K21;
+IO_PORT "led[3]"              IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+
+// uart_tx  FPGA_UART_TX -> ARM RX（GPIO0_25）
+IO_LOC  "uart_tx"             C19;
+IO_PORT "uart_tx"             IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+
+// uart_rx  FPGA_UART_RX <- ARM TX（GPIO0_26）
+IO_LOC  "uart_rx"             F16;
+IO_PORT "uart_rx"             IO_TYPE=LVCMOS33 PULL_MODE=UP;
+
+// uart_tx_dbg  调试串口TX -> 板载USB转串口(PC的COM口)
+IO_LOC  "uart_tx_dbg"         M15;
+IO_PORT "uart_tx_dbg"         IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+
+// m_pwm[0]  GPIO0_0  左前 PWM
+IO_LOC  "m_pwm[0]"            E14;
+IO_PORT "m_pwm[0]"            IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+
+// m_pwm[1]  GPIO0_1  右前 PWM
+IO_LOC  "m_pwm[1]"            E13;
+IO_PORT "m_pwm[1]"            IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+
+// m_pwm[2]  GPIO0_2  左后 PWM
+IO_LOC  "m_pwm[2]"            C17;
+IO_PORT "m_pwm[2]"            IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+
+// m_pwm[3]  GPIO0_3  右后 PWM
+IO_LOC  "m_pwm[3]"            D17;
+IO_PORT "m_pwm[3]"            IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+
+// m_dir[0]  GPIO0_4  左前 方向
+IO_LOC  "m_dir[0]"            A19;
+IO_PORT "m_dir[0]"            IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+
+// m_dir[1]  GPIO0_5  右前 方向
+IO_LOC  "m_dir[1]"            A18;
+IO_PORT "m_dir[1]"            IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+
+// m_dir[2]  GPIO0_6  左后 方向
+IO_LOC  "m_dir[2]"            C15;
+IO_PORT "m_dir[2]"            IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+
+// m_dir[3]  GPIO0_7  右后 方向
+IO_LOC  "m_dir[3]"            F19;
+IO_PORT "m_dir[3]"            IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+
+// m_en  GPIO0_8  驱动使能（默认下拉=上电停车）
+IO_LOC  "m_en"                E16;
+IO_PORT "m_en"                IO_TYPE=LVCMOS33 PULL_MODE=DOWN DRIVE=8;
+
+// enc_a[0]  GPIO0_9   左前 A 相
+IO_LOC  "enc_a[0]"            A16;
+IO_PORT "enc_a[0]"            IO_TYPE=LVCMOS33 PULL_MODE=UP;
+
+// enc_b[0]  GPIO0_10  左前 B 相
+IO_LOC  "enc_b[0]"            A14;
+IO_PORT "enc_b[0]"            IO_TYPE=LVCMOS33 PULL_MODE=UP;
+
+// enc_a[1]  GPIO0_11  右前 A 相
+IO_LOC  "enc_a[1]"            A15;
+IO_PORT "enc_a[1]"            IO_TYPE=LVCMOS33 PULL_MODE=UP;
+
+// enc_b[1]  GPIO0_12  右前 B 相
+IO_LOC  "enc_b[1]"            A13;
+IO_PORT "enc_b[1]"            IO_TYPE=LVCMOS33 PULL_MODE=UP;
+
+// enc_a[2]  GPIO0_13  左后 A 相
+IO_LOC  "enc_a[2]"            D15;
+IO_PORT "enc_a[2]"            IO_TYPE=LVCMOS33 PULL_MODE=UP;
+
+// enc_b[2]  GPIO0_14  左后 B 相
+IO_LOC  "enc_b[2]"            B13;
+IO_PORT "enc_b[2]"            IO_TYPE=LVCMOS33 PULL_MODE=UP;
+
+// enc_a[3]  GPIO0_15  右后 A 相
+IO_LOC  "enc_a[3]"            D14;
+IO_PORT "enc_a[3]"            IO_TYPE=LVCMOS33 PULL_MODE=UP;
+
+// enc_b[3]  GPIO0_16  右后 B 相
+IO_LOC  "enc_b[3]"            C13;
+IO_PORT "enc_b[3]"            IO_TYPE=LVCMOS33 PULL_MODE=UP;
+
+// m_dir2[0]  GPIO0_33  左前 第二方向（接 AIN2）
+IO_LOC  "m_dir2[0]"           F14;
+IO_PORT "m_dir2[0]"           IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+
+// m_dir2[1]  GPIO0_32  右前 第二方向（接 BIN2）
+IO_LOC  "m_dir2[1]"           F13;
+IO_PORT "m_dir2[1]"           IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+
+// m_dir2[2]  GPIO0_30  左后 第二方向（接 CIN2）
+IO_LOC  "m_dir2[2]"           B16;
+IO_PORT "m_dir2[2]"           IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+
+// m_dir2[3]  GPIO0_28  右后 第二方向（接 DIN2）
+IO_LOC  "m_dir2[3]"           F18;
+IO_PORT "m_dir2[3]"           IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+
+// [未使用-已释放] lift_pwm[0]  GPIO0_17  输出: 前腿组舵机 PWM
+IO_PORT "lift_pwm[0]"         IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+
+// [未使用-已释放] lift_pwm[1]  GPIO0_18  输出: 后腿组舵机 PWM
+IO_PORT "lift_pwm[1]"         IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+
+// [未使用-已释放] lift_lim_n[0]  GPIO0_19   输入: 前腿抬起到位（低有效）
+IO_PORT "lift_lim_n[0]"       IO_TYPE=LVCMOS33 PULL_MODE=UP;
+
+// lift_lim_n[1]  GPIO0_22   输入: 后腿抬起到位（低有效）
+IO_LOC  "lift_lim_n[1]"       B17;
+IO_PORT "lift_lim_n[1]"       IO_TYPE=LVCMOS33 PULL_MODE=UP;
+
+// lift_fault_n[0]  GPIO0_23 输入: 前腿舵机故障（低有效，不接=1=正常）
+IO_LOC  "lift_fault_n[0]"     B18;
+IO_PORT "lift_fault_n[0]"     IO_TYPE=LVCMOS33 PULL_MODE=UP;
+
+// lift_fault_n[1]  GPIO0_24 输入: 后腿舵机故障（低有效，不接=1=正常）
+IO_LOC  "lift_fault_n[1]"     C18;
+IO_PORT "lift_fault_n[1]"     IO_TYPE=LVCMOS33 PULL_MODE=UP;
+
+// i2c_scl  GPIO0_29  I2C SCL -> TOF（开漏，靠模块 10k 上拉）
+IO_LOC  "i2c_scl"             C20;
+IO_PORT "i2c_scl"             IO_TYPE=LVCMOS33 PULL_MODE=NONE;
+
+// i2c_sda  GPIO0_31  I2C SDA -> TOF（开漏，靠模块 10k 上拉）
+IO_LOC  "i2c_sda"             D19;
+IO_PORT "i2c_sda"             IO_TYPE=LVCMOS33 PULL_MODE=NONE;
+
+// sr04_trig  GPIO0_35  HC-SR04 TRIG（输出，10us 高脉冲）
+IO_LOC  "sr04_trig"           F20;
+IO_PORT "sr04_trig"           IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+
+// sr04_echo  GPIO0_34   HC-SR04 ECHO（输入，高电平宽度=往返时间）
+IO_LOC  "sr04_echo"           E18;
+IO_PORT "sr04_echo"           IO_TYPE=LVCMOS33 PULL_MODE=DOWN;
+
+// [未使用-已释放] goal_reached  GPIO0_20  输入: 终点限位开关（**低有效**，接地=到达；未接=上拉=未到达）
+IO_PORT "goal_reached"        IO_TYPE=LVCMOS33 PULL_MODE=UP;
+
+// error_flag  GPIO0_21  输出: 故障指示
+IO_LOC  "error_flag"          D16;
+IO_PORT "error_flag"          IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+
+// state_dbg[0]  LED4  状态机 bit0
+IO_LOC  "state_dbg[0]"        K22;
+IO_PORT "state_dbg[0]"        IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+
+// state_dbg[1]  LED5  状态机 bit1
+IO_LOC  "state_dbg[1]"        J22;
+IO_PORT "state_dbg[1]"        IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+
+// state_dbg[2]  LED6  状态机 bit2
+IO_LOC  "state_dbg[2]"        H22;
+IO_PORT "state_dbg[2]"        IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+
+// speed_scale_dbg[0]  LED7  速度档 bit0
+IO_LOC  "speed_scale_dbg[0]"  M21;
+IO_PORT "speed_scale_dbg[0]"  IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+
+// speed_scale_dbg[1]  LED8  速度档 bit1  ⚠️ 与 BEEP 同球，需确认
+IO_LOC  "speed_scale_dbg[1]"  N19;
+IO_PORT "speed_scale_dbg[1]"  IO_TYPE=LVCMOS33 PULL_MODE=NONE DRIVE=8;
+
+//-----------------------------------------------------------------------------
+// 时序约束 (SDC 风格，写在 top.sdc 里，本文件只放物理约束)
+//   50MHz 周期 = 20ns;  换 PLL 100MHz 后改成 10ns
+//   create_clock -name sys_clk -period 20 -waveform {0 10} [get_ports {clk_50m}]
+//-----------------------------------------------------------------------------

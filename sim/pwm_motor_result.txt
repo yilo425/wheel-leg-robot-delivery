@@ -1,0 +1,23 @@
+  [ OK ] disabled: duty_actual : 0
+  [ OK ] disabled: high cnt : 0
+  [ OK ] 50%: dir_out=dir_in : 1
+  [ OK ] 50%: duty_actual : 50
+  [ OK ] 50%: high cnt : 50
+  [ OK ] 25%: high cnt : 25
+  [ OK ] rev: dir_out=dir_in : 0
+  [ OK ] rev: duty_actual : -25
+  [ OK ] rev: high cnt (不变) : 25
+  [ OK ] neg duty: dir_out : 1
+  [ OK ] neg duty: duty_actual : 25
+  [ OK ] neg duty: high cnt : 25
+  [ OK ] deadband 前置: dir_out : 0
+  [ OK ] deadband: high cnt : 0
+  [ OK ] deadband: dir 保持不换向 : 0
+  [ OK ] deadband edge: high cnt : 4
+  [ OK ] deadband edge: dir 更新 : 1
+  [ OK ] clamp: dir_out : 1
+  [ OK ] clamp: duty_actual : 100
+  [ OK ] clamp: high cnt : 100
+  [ OK ] zero: high cnt : 0
+=== tb_pwm_motor: 21 checks, 0 errors ===
+RESULT: PASS
